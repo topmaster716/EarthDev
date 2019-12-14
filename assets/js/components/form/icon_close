@@ -1,0 +1,12 @@
+// import React from "react";
+// import Icon from '@material-ui/icons';
+//
+// class Icon extends React.Component {
+//     render() {
+//         return (
+//             <Icon>close</Icon>
+//         );
+//     }
+// }
+//
+// export default Icon;

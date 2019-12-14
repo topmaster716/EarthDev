@@ -16,7 +16,7 @@ module.exports = (env, options) => ({
     ]
   },
   entry: {
-    './js/app.js': glob.sync('./vendor/**/*.js').concat(['./js/app.js'])
+    "app":  glob.sync('./vendor/**/*.js').concat(['./js/app.js'])
   },
 
   // optimization of assets (only in production)
@@ -25,8 +25,9 @@ module.exports = (env, options) => ({
   },
 
   output: {
-    filename: 'app.js',
-    path: path.resolve(__dirname, '../priv/static/js')
+    filename: '[name].js',
+    path: path.resolve(__dirname, '../priv/static/js'),
+    publicPath: "/"
   },
   // Instructs webpack how to load files
   module: {
@@ -45,14 +46,14 @@ module.exports = (env, options) => ({
         use: [MiniCssExtractPlugin.loader, 'css-loader']
       },
       // load sass assets
-      {
-        test: /\.sass$/,
-        use: [
-          'style-loader',
-          'css-loader',
-          'sass-loader'
-        ]
-      },
+      // {
+      //   test: /\.sass$/,
+      //   use: [
+      //     'style-loader',
+      //     'css-loader',
+      //     'sass-loader'
+      //   ]
+      // },
 
       //load img assets 
       // {
@@ -63,18 +64,18 @@ module.exports = (env, options) => ({
       //     'file-loader?name=images/favicons/[name].[ext]'
       //   ]
       // },
-      {
-        test: /\.(png|jpg|jpeg)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: '[name].[ext]',
-              outputPath: 'images/'
-            }
-          }
-        ]
-      },
+      // {
+      //   test: /\.(png|jpg|jpeg|gif)$/,
+      //   use: [
+      //     {
+      //       loader: 'file-loader',
+      //       options: {
+      //         name: '[name].[ext]',
+      //         outputPath: 'images/'
+      //       }
+      //     }
+      //   ]
+      // },
       //load fonts assets
       {
         test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
@@ -83,7 +84,7 @@ module.exports = (env, options) => ({
             loader: 'file-loader',
             options: {
               name: '[name].[ext]',
-              outputPath: 'fonts/'
+              outputPath: '../fonts'
             }
           }
         ]
@@ -92,19 +93,19 @@ module.exports = (env, options) => ({
   },
 
   plugins: [
-  new CompressionPlugin({  
-      asset: "[path].gz[query]",
-      algorithm: "gzip",
-      deleteOriginalAssets: false,
-      test: /\.js$|\.css$/,
-      // compress if size is bigger than 10240 bytes
-      threshold: 10240,
-      // compress if size is compressed better than 0.8 ratio
-      minRatio: 0.8
-    }),
+  // new CompressionPlugin({  
+  //     asset: "[path].gz[query]",
+  //     algorithm: "gzip",
+  //     deleteOriginalAssets: false,
+  //     test: /\.js$|\.css$/,
+  //     // compress if size is bigger than 10240 bytes
+  //     threshold: 10240,
+  //     // compress if size is compressed better than 0.8 ratio
+  //     minRatio: 0.8
+  //   }),
     // creates visualization of files in root
     new Visualizer({
-      filename: './stats.html'
+      filename: '../stats.html'
     }),
     new MiniCssExtractPlugin({ filename: '../css/app.css' }),
     new CopyWebpackPlugin([{ from: 'static/', to: '../' }])
