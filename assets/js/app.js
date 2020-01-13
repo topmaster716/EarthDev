@@ -2,9 +2,9 @@
 
 // CSS
 import "../css/app.css";
+import "../css/fonts.css";
 
 // APP
-import "phoenix_html";
 import React from "react";
 import ReactDOM from "react-dom";
 import { browserHistory } from "react-router";
@@ -16,7 +16,6 @@ const store = configureStore(browserHistory);
 const history = syncHistoryWithStore(browserHistory, store);
 
 const target = document.getElementById("root_container");
-
 const node = <Root routerHistory={history} store={store} />;
 
-ReactDOM.render(node, target);
+setTimeout(() => ReactDOM.render(node, target), 2000)
