@@ -72,7 +72,6 @@ function EarthGlobe() {
         setDetails(null);
         }
     return (
-       <> 
         <ReactGlobe
             markers={markers}
             markerOptions={{
@@ -94,8 +93,6 @@ function EarthGlobe() {
             onClickMarker={onClickMarker}
             onDefocus={onDefocus}
         />
-        
-        </>
     )
 }
 
