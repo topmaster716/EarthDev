@@ -3,16 +3,6 @@ import ReactDOM from 'react-dom';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Title from "../components/Title";
-import Footer from "../components/Footer";
-import EarthSmall from "../components/EarthSmall";
-import EarthFull from "../components/EarthFull";
-import ButtonBack from "../components/ButtonBack";
-import PopupMark from "../components/PopupMark";
-import PopupCongrats from "../components/PopupCongrats";
-import PopupInfo from "../components/PopupInfo";
-import ButtonSmall from "../../../components/ButtonSmall";
-import MarkerTypes from "../components/MarkerTypes";
-import PopupPayment from "../components/PopupPayment";
 import ScrollButton from '../components/ScrollButton';
 
 import ReactGlobe from 'react-globe';
