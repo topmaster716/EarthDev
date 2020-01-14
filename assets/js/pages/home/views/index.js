@@ -10,24 +10,48 @@ import EarthGlobe from "../components/EarthGlobe";
 import Footer from "../components/Footer";
 import ButtonBig from "../../../components/buttons/ButtonBig";
 import MarkerTypes from "../components/MarkerTypes";
+import PopupInfo from "../components/PopupInfo";
 
 //Styles
-import { Container, ContainerEarth, ContainerButton } from "./styles";
+import {
+  Container,
+  ContainerEarth,
+  ContainerButton,
+  ContainerPopup
+} from "./styles";
 
 function PrimaryView(props) {
   const [details, setDetails] = useState(null);
   const [isZoomed, setIsZoomed] = useState(false);
   const [newMarker, setNewMarker] = useState(false);
-  //const [newMarkerStage, setNewMarkerStage] = useState(1);
+  const [newMarkerStage, setNewMarkerStage] = useState("");
+  const [showButton, setshowButton] = useState(false);
+  const [btnTitle, setBtnTitle] = useState("Procced");
 
   function handleZoom(e) {
     setIsZoomed(!isZoomed);
+    setshowButton(true);
   }
 
   function onClickBtn() {
-    setNewMarker(true);
-    //setNewMarkerStage(newMarkerStage++)
+    if (newMarker == false) {
+      setNewMarker(true);
+      setNewMarkerStage("ChooseMarker");
+      setBtnTitle("Accept Location");
+    } else if (newMarker == true && newMarkerStage == "ChooseMarker") {
+      setNewMarkerStage("GeneralInfo");
+      setshowButton(false);
+    } else if (newMarker == true && newMarkerStage == "GeneralInfo") {
+      setNewMarkerStage("PaymentInfo");
+    } else if (newMarker == true && newMarkerStage == "PaymentInfo") {
+      setNewMarkerStage("Congrats");
+    } else {
+      setNewMarker(false);
+    }
+    console.log(newMarkerStage);
   }
+
+  console.log(newMarkerStage);
   // {details && (
   //     <div style={{
   //         background: 'white',
@@ -46,7 +70,6 @@ function PrimaryView(props) {
   // )}
   return (
     <Container>
-      {newMarker ? <MarkerTypes /> : null}
       {isZoomed ? null : <Title />}
       <ContainerEarth
         onWheel={handleZoom}
@@ -55,10 +78,16 @@ function PrimaryView(props) {
       >
         <EarthGlobe />
         {isZoomed ? null : <ScrollButton />}
+        <ContainerPopup>
+          {newMarkerStage == "ChooseMarker" ? <MarkerTypes /> : null}
+          {newMarkerStage == "GeneralInfo" ? (
+            <PopupInfo onClick={onClickBtn} />
+          ) : null}
+        </ContainerPopup>
       </ContainerEarth>
-      {isZoomed ? (
+      {showButton ? (
         <ContainerButton>
-          <ButtonBig btnTitle="Proceed" onClick={onClickBtn} />
+          <ButtonBig btnTitle={btnTitle} onClick={onClickBtn} />
         </ContainerButton>
       ) : null}
       <Footer />

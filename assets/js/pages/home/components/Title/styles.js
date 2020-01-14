@@ -1,7 +1,9 @@
 import styled from "styled-components";
 
 export const ContainerHeader = styled.div`
-	margin: 23vh 4vh 0 16vh;
+	margin: 23vh 0;
+	max-width: 40%px;
+	width: 100%;
 `;
 
 export const Title = styled.h1`
