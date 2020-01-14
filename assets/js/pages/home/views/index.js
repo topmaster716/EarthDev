@@ -2,54 +2,56 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+
+//Components
 import Title from "../components/Title";
 import ScrollButton from '../components/ScrollButton';
 import EarthGlobe from '../components/EarthGlobe';
-import { ContainerEarth, ContainerEarthOuter } from "./styles";
+import Footer from '../components/Footer';
 
+//Styles
+import { Container, ContainerEarth, ContainerEarthOuter } from "./styles";
 
-import ReactGlobe from 'react-globe';
-
-function PrimaryView() {
+function PrimaryView(props) {
 
   const [details, setDetails] = useState(null);
   const [isZoomed, setIsZoomed] = useState(false);
 
-  function handleZoom(){
-      setIsZoomed(true)
+  function handleZoom(e){
+      console.log(e);
+      setIsZoomed(!isZoomed);
   }
   
   return (
-     <div className="container h100per w100per"
-        //onWheel={e => this.handleZoom(e)}
-        onDoubleClick={handleZoom}
-      >
+     <Container>
       {isZoomed ? null : <Title/>}
-        <ContainerEarth>
-            <ContainerEarthOuter id="earth-outer">
+        <ContainerEarth 
+            onWheel={handleZoom}
+            onDoubleClick={handleZoom}
+        >
+            <ContainerEarthOuter isZoomed={isZoomed}>
                 <EarthGlobe />
-                {details && (
-                  <div
-                    style={{
-                      background: 'white',
-                      position: 'absolute',
-                      fontSize: 20,
-                      top: 0,
-                      right: 0,
-                      padding: 12,
-                    }}>
-                    <p>{details}</p>
-                    <p>
-                      EVENT: type={event.type}, position=
-                      {JSON.stringify(event.pointerEventPosition)})
-                    </p>
-                  </div>
-                )}
-                <ScrollButton/>
-            </ContainerEarthOuter>
-        </ContainerEarth>
-
-      </div>
+                  {details && (
+                      <div style={{
+                          background: 'white',
+                          position: 'absolute',
+                          fontSize: 20,
+                          top: 0,
+                          right: 0,
+                          padding: 12,
+                          }}>
+                          <p>{details}</p>
+                          <p>
+                              EVENT: type={event.type}, position=
+                               {JSON.stringify(event.pointerEventPosition)})
+                          </p>
+                      </div>
+                  )}
+                {isZoomed ? null : <ScrollButton/>} 
+              </ContainerEarthOuter>
+          </ContainerEarth>
+          <Footer />
+      </Container>
   );
 }
 
