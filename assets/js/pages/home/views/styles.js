@@ -20,3 +20,12 @@ export const ContainerEarthOuter = styled.div`
     width: 100%;
     margin: ${props => (props.isZoomed ? "0" : "10vh 5vh 10vh 0")};
 `
+
+export const ContainerButton = styled.div`
+    position: absolute;
+    bottom: 6.5vh;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+`

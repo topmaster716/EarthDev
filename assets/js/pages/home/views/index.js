@@ -8,22 +8,30 @@ import Title from "../components/Title";
 import ScrollButton from '../components/ScrollButton';
 import EarthGlobe from '../components/EarthGlobe';
 import Footer from '../components/Footer';
+import ButtonBig from "../../../components/buttons/ButtonBig";
+import MarkerTypes from "../components/MarkerTypes";
 
 //Styles
-import { Container, ContainerEarth, ContainerEarthOuter } from "./styles";
+import { Container, ContainerEarth, ContainerEarthOuter, ContainerButton } from "./styles";
 
 function PrimaryView(props) {
 
   const [details, setDetails] = useState(null);
   const [isZoomed, setIsZoomed] = useState(false);
+  const [newMarker, setNewMarker] = useState(false);
 
   function handleZoom(e){
       console.log(e);
       setIsZoomed(!isZoomed);
   }
+
+  function onClickBtn() {
+      setNewMarker(true);
+  }
   
   return (
      <Container>
+      {newMarker ? <MarkerTypes/> : null}
       {isZoomed ? null : <Title/>}
         <ContainerEarth 
             onWheel={handleZoom}
@@ -50,6 +58,12 @@ function PrimaryView(props) {
                 {isZoomed ? null : <ScrollButton/>} 
               </ContainerEarthOuter>
           </ContainerEarth>
+          {isZoomed ? 
+              <ContainerButton>
+                 <ButtonBig btnTitle="Proceed" onClick={onClickBtn}/>
+              </ContainerButton> 
+              : null
+           } 
           <Footer />
       </Container>
   );

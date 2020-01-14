@@ -1,8 +1,8 @@
 import React, {Component} from "react";
-import Title from "../../../components/form/title";
-import MarkCard from "../../../components/form/mark_card";
-import Text from "../../../components/form/text";
-import Link from "../../../components/form/link";
+import Title from "../../../../components/form/title";
+import MarkCard from "../../../../components/form/mark_card";
+import Text from "../../../../components/form/text";
+import Link from "../../../../components/form/link";
 
 class PopupMark extends Component {
     constructor(props){
