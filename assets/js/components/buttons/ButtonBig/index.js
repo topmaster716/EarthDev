@@ -4,7 +4,7 @@ import { Button } from "./styles"
 
 function ButtonBig(props) {
 
-    const { btnId, btnTitle, onClick } = props;
+    const { btnTitle, onClick } = props;
 
     return (
        <Button onClick={onClick}>{btnTitle}</Button>

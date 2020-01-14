@@ -1,25 +1,34 @@
 import styled, { keyframes } from "styled-components";
 
-export const Container = styled.div` 
-	position: relative;
+const AppearAnimation = keyframes`
+  0% { width: 60%; }
+  100% { width: 100%; }
+`;
+
+const DisppearAnimation = keyframes`
+    0% { width: 100%; }
+  100% { width: 60%; }
+`;
+
+export const Container = styled.div`
+    position: relative;
     background: #17233e;
     display: flex;
+    justify-content: flex-end;
     flex-direction: row;
     height: 100%;
     width: 100%;
-`
+`;
 
 export const ContainerEarth = styled.div`
-	flex-grow: 1;
-    display: flex;
-    width: 100%;
-`
-
-export const ContainerEarthOuter = styled.div`
-	position: relative;
-    width: 100%;
-    margin: ${props => (props.isZoomed ? "0" : "10vh 5vh 10vh 0")};
-`
+    position: absolute;
+    right: 0;
+    height: 100%;
+    width: ${props => (props.isZoomed ? "100%" : "60%")};
+    animation: ${props =>
+            props.isZoomed ? AppearAnimation : DisppearAnimation}
+        2s ease-in-out;
+`;
 
 export const ContainerButton = styled.div`
     position: absolute;
@@ -28,4 +37,4 @@ export const ContainerButton = styled.div`
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
-`
+`;
