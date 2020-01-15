@@ -71,6 +71,11 @@ function EarthGlobe() {
     });
     setDetails(null);
   }
+
+  function onClick(event) {
+    console.log(event.clientX, event.clientY);
+  }
+
   return (
     <ReactGlobe
       markers={markers}
@@ -95,6 +100,7 @@ function EarthGlobe() {
       }
       onClickMarker={onClickMarker}
       onDefocus={onDefocus}
+      onClick={onClickMarker}
     />
   );
 }

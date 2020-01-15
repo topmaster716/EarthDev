@@ -118,7 +118,7 @@ function PrimaryView(props) {
           <ButtonBig btnTitle={btnTitle} onClick={onClickBtn} />
         </ContainerButton>
       ) : null}
-      <Footer />
+      {isZoomed ? null : <Footer />}
     </Container>
   );
 }
