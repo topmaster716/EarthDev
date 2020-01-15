@@ -1,24 +1,24 @@
 import styled from "styled-components";
 
 export const FooterContainer = styled.footer`
-	position: absolute;
+    position: absolute;
     bottom: 3.5vh;
-    left: 16vh;
-    right: 10vh;
+    left: 32px;
+    right: 32px;
 `;
 
 export const BlockLeft = styled.div`
-	display: inline-block;
+    display: inline-block;
     float: left;
 `;
 
 export const BlockRigth = styled.div`
-	display: inline-block;
+    display: inline-block;
     float: right;
-`
+`;
 
 export const FooterText = styled.span`
-	margin-right: 10px;
+    margin-right: 10px;
     font-family: "Montserrat", sans-serif;
     font-style: normal;
     font-weight: normal;
@@ -29,7 +29,7 @@ export const FooterText = styled.span`
 `;
 
 export const FooterLink = styled.span`
-	margin-left: 24px;
+    margin-left: 24px;
     font-family: "Montserrat", sans-serif;
     font-style: normal;
     font-weight: normal;
@@ -41,7 +41,6 @@ export const FooterLink = styled.span`
 `;
 
 export const Link = styled.a`
-	text-decoration: none;
+    text-decoration: none;
     color: #ffffff;
 `;
-

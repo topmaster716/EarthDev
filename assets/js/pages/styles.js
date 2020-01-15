@@ -7,6 +7,10 @@ export const ContainerNotFound = styled.div`
     align-items: center;
 `;
 
+export const ContainerContent = styled.div`
+    text-align: center;
+`;
+
 export const Title = styled.h2`
     margin: 16vh 0 0 0;
     font-family: "Montserrat", sans-serif;

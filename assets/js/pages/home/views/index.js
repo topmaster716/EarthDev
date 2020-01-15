@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 //Components
-import Title from "../components/Title";
+import ContainerLeft from "../components/ContainerLeft";
 import ScrollButton from "../components/ScrollButton";
 import EarthGlobe from "../components/EarthGlobe";
 import Footer from "../components/Footer";
@@ -88,7 +88,7 @@ function PrimaryView(props) {
   // )}
   return (
     <Container>
-      {isZoomed ? null : <Title />}
+      {isZoomed ? null : <ContainerLeft />}
       <ContainerEarth
         onWheel={handleZoom}
         onDoubleClick={handleZoom}

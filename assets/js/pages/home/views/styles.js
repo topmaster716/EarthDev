@@ -28,6 +28,7 @@ export const ContainerEarth = styled.div`
             props.isZoomed ? AppearAnimation : DisppearAnimation}
         1s ease-in-out;
     width: 100%;
+    padding: 65px 0;
 `;
 
 export const ContainerButton = styled.div`
