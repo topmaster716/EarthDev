@@ -29,6 +29,5 @@ export const Text = styled.p`
 `;
 
 export const ContainerImage = styled.div`
-    position: absolute;
-    bottom: 0;
+    margin-top: 14vh;
 `;
