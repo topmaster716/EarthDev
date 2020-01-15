@@ -45,7 +45,7 @@ export const ContainerButton = styled.div`
 
 export const ContainerPopup = styled.div`
     position: absolute;
-    top: 10px;
+    top: 50%;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);

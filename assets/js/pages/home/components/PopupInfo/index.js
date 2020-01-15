@@ -50,10 +50,10 @@ class PopupInfo extends Component {
     }
 
     render() {
-        const { classes } = this.props;
+        const { classes, onClick, closePopup } = this.props;
         return (
             <Form>
-                <Title text={this.state.title} />
+                <Title text={this.state.title} closePopup={closePopup} />
                 <TextField
                     placeholder={"Enter your nickname"}
                     label={"Nickname"}
@@ -85,10 +85,8 @@ class PopupInfo extends Component {
                     helperText={this.state.lettersLeft}
                 />
                 <Checkbox helperText={"I agree with Terms & Conditions"} />
-                <PopupButton text={"Proceed $1"} onClick={this.onClick} />
+                <PopupButton text={"Proceed $1"} onClick={onClick} />
             </Form>
-            //     )}
-            // </MiniFormik>
         );
     }
 }

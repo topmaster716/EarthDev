@@ -1,20 +1,20 @@
 import React from "react";
 import MaterialTextField from "@material-ui/core/TextField";
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const StyledTextField = styled(MaterialTextField)`
   .MuiFormLabel-root {
     font-family: Montserrat;
     font-weight: bold;
     font-size: 12px;
-    background: #FFFFFF;
+    background: #ffffff;
     padding-right: 6px;
-  } 
+  }
   .MuiFormControl-marginNormal {
     margin-top: 9px;
     margin-bottom: 9px;
   }
-`
+`;
 
 // const styles = theme => ({
 //   input: {
@@ -53,7 +53,6 @@ class TextField extends React.Component {
       <StyledTextField
         margin="normal"
         fullWidth
-        id="outlined-basic"
         autoComplete={label}
         type={type}
         multiline={multiline}

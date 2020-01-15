@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 // import Typography from "@material-ui/core/Typography";
 // import {Close} from "@material-ui/icons";
 // import styled from 'styled-components';
@@ -26,46 +26,45 @@ import React from 'react';
 //
 // export default Title;
 
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import {Close} from "@material-ui/icons";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
+import { Close } from "@material-ui/icons";
 
 const styles = theme => ({
   container: {
-      margin: '0',
-      width: '100%',
-      position: "relative",
-      marginBottom: "14px"
+    margin: "0",
+    width: "100%",
+    position: "relative",
+    marginBottom: "14px"
   },
   formTitle: {
-      fontStyle: "normal",
-      fontWeight: "200",
-      fontSize: "24px",
-      color: "#081124",
+    fontStyle: "normal",
+    fontWeight: "200",
+    fontSize: "24px",
+    color: "#081124"
   },
   formBtn: {
-      minWidth: "0%",
-      position: "absolute",
-      top: "0",
-      right: "0",
-      padding: "6px 0px",
+    minWidth: "0%",
+    position: "absolute",
+    top: "0",
+    right: "0",
+    padding: "6px 0px"
   }
 });
 
 class Title extends React.Component {
-
   render() {
-    const { classes, text } = this.props;
+    const { classes, text, closePopup } = this.props;
 
     return (
       <div className={classes.container}>
         <Typography variant="h6" color="inherit" className={classes.formTitle}>
-            {text}
+          {text}
         </Typography>
-        <Button className={classes.formBtn}>
-            <Close/>
+        <Button className={classes.formBtn} onClick={closePopup}>
+          <Close />
         </Button>
       </div>
     );
@@ -73,7 +72,7 @@ class Title extends React.Component {
 }
 
 Title.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styles, { withTheme: true })(Title);

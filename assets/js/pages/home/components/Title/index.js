@@ -1,11 +1,6 @@
-import React, {Component} from "react";
-import ButtonBig from '../../../../components/buttons/ButtonBig'
-import {
-    ContainerHeader,
-    Title,
-    Content 
-} from "./styles";
-
+import React, { Component } from "react";
+import ButtonBig from "../../../../components/buttons/ButtonBig";
+import { ContainerHeader, Title, Content } from "./styles";
 
 class ContainerRight extends Component {
     render() {
@@ -17,8 +12,8 @@ class ContainerRight extends Component {
                 <Content>Be the one in a million.</Content>
                 <ButtonBig btnTitle="Proceed" btnId="proceed-btn" />
             </ContainerHeader>
-        )
+        );
     }
 }
 
-export default ContainerRight
+export default ContainerRight;

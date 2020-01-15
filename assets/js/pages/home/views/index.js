@@ -11,6 +11,9 @@ import Footer from "../components/Footer";
 import ButtonBig from "../../../components/buttons/ButtonBig";
 import MarkerTypes from "../components/MarkerTypes";
 import PopupInfo from "../components/PopupInfo";
+import PopupPayment from "../components/PopupPayment";
+import PopupCongrats from "../components/PopupCongrats";
+import PopupMark from "../components/PopupMark";
 
 //Styles
 import {
@@ -25,33 +28,48 @@ function PrimaryView(props) {
   const [isZoomed, setIsZoomed] = useState(false);
   const [newMarker, setNewMarker] = useState(false);
   const [newMarkerStage, setNewMarkerStage] = useState("");
-  const [showButton, setshowButton] = useState(false);
-  const [btnTitle, setBtnTitle] = useState("Procced");
+  const [showButton, setShowButton] = useState(false);
+  const [btnTitle, setBtnTitle] = useState("Proceed");
+  const [selectedMarker, setSelectedMarker] = useState(false);
+
+  console.log(selectedMarker);
 
   function handleZoom(e) {
     setIsZoomed(!isZoomed);
-    setshowButton(true);
+    setShowButton(true);
+  }
+
+  function closePopup(e) {
+    if (!selectedMarker) {
+      setSelectedMarker(true);
+    }
+    setNewMarker(false);
+    setNewMarkerStage("");
+    setShowButton(true);
   }
 
   function onClickBtn() {
+    console.log(newMarkerStage);
     if (newMarker == false) {
       setNewMarker(true);
       setNewMarkerStage("ChooseMarker");
       setBtnTitle("Accept Location");
     } else if (newMarker == true && newMarkerStage == "ChooseMarker") {
       setNewMarkerStage("GeneralInfo");
-      setshowButton(false);
+      setBtnTitle("Proceed");
+      setShowButton(false);
     } else if (newMarker == true && newMarkerStage == "GeneralInfo") {
       setNewMarkerStage("PaymentInfo");
     } else if (newMarker == true && newMarkerStage == "PaymentInfo") {
       setNewMarkerStage("Congrats");
-    } else {
+    } else if (newMarker == true && newMarkerStage == "Congrats") {
       setNewMarker(false);
+      setNewMarkerStage("");
+      setShowButton(true);
+    } else {
     }
-    console.log(newMarkerStage);
   }
 
-  console.log(newMarkerStage);
   // {details && (
   //     <div style={{
   //         background: 'white',
@@ -81,7 +99,13 @@ function PrimaryView(props) {
         <ContainerPopup>
           {newMarkerStage == "ChooseMarker" ? <MarkerTypes /> : null}
           {newMarkerStage == "GeneralInfo" ? (
-            <PopupInfo onClick={onClickBtn} />
+            <PopupInfo onClick={onClickBtn} closePopup={closePopup} />
+          ) : null}
+          {newMarkerStage == "PaymentInfo" ? (
+            <PopupPayment onClick={onClickBtn} closePopup={closePopup} />
+          ) : null}
+          {newMarkerStage == "Congrats" ? (
+            <PopupCongrats closePopup={closePopup} />
           ) : null}
         </ContainerPopup>
       </ContainerEarth>
@@ -94,6 +118,8 @@ function PrimaryView(props) {
     </Container>
   );
 }
+
+// {selectedMarker ? <PopupMark closePopup={closePopup} /> : null}
 
 // PrimaryView.propTypes = {
 //   router: PropTypes.object.isRequired,
