@@ -20,7 +20,7 @@ import {
   Container,
   ContainerEarth,
   ContainerButton,
-  ContainerPopup
+  ContainerCentered
 } from "./styles";
 
 function PrimaryView(props) {
@@ -36,7 +36,7 @@ function PrimaryView(props) {
 
   function handleZoom(e) {
     setIsZoomed(!isZoomed);
-    setShowButton(true);
+    setShowButton(!showButton);
   }
 
   function closePopup(e) {
@@ -87,7 +87,7 @@ function PrimaryView(props) {
   //     </div>
   // )}
   return (
-    <Container>
+    <Container isZoomed={isZoomed}>
       {isZoomed ? null : <ContainerLeft />}
       <ContainerEarth
         onWheel={handleZoom}
@@ -96,18 +96,22 @@ function PrimaryView(props) {
       >
         <EarthGlobe />
         {isZoomed ? null : <ScrollButton />}
-        <ContainerPopup>
-          {newMarkerStage == "ChooseMarker" ? <MarkerTypes /> : null}
-          {newMarkerStage == "GeneralInfo" ? (
+        {newMarkerStage == "ChooseMarker" ? <MarkerTypes /> : null}
+        {newMarkerStage == "GeneralInfo" ? (
+          <ContainerCentered>
             <PopupInfo onClick={onClickBtn} closePopup={closePopup} />
-          ) : null}
-          {newMarkerStage == "PaymentInfo" ? (
+          </ContainerCentered>
+        ) : null}
+        {newMarkerStage == "PaymentInfo" ? (
+          <ContainerCentered>
             <PopupPayment onClick={onClickBtn} closePopup={closePopup} />
-          ) : null}
-          {newMarkerStage == "Congrats" ? (
+          </ContainerCentered>
+        ) : null}
+        {newMarkerStage == "Congrats" ? (
+          <ContainerCentered>
             <PopupCongrats closePopup={closePopup} />
-          ) : null}
-        </ContainerPopup>
+          </ContainerCentered>
+        ) : null}
       </ContainerEarth>
       {showButton ? (
         <ContainerButton>

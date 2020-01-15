@@ -78,19 +78,21 @@ function EarthGlobe() {
         getTooltipContent
       }}
       globeOptions={{
-        // texture: `./images/map.png`,
         enableBackground: false,
         // need to enable glow with our color, to remove white
-        enableGlow: false,
+        enableGlow: true,
+        glowColor: "#17233e",
         enableClouds: false,
-        texture: "https://moto.kiev.ua/users/wely/test/world_1.svg"
+        texture: "http://localhost:4000/images/texture.svg"
       }}
-      cameraOptions={{
-        autoRotateSpeed: 1,
-        enableAutoRotate: true,
-        enableRotate: true,
-        rotateSpeed: 0.5
-      }}
+      cameraOptions={
+        {
+          //autoRotateSpeed: 1,
+          //enableAutoRotate: true,
+          //enableRotate: true,
+          //rotateSpeed: 0.5
+        }
+      }
       onClickMarker={onClickMarker}
       onDefocus={onDefocus}
     />

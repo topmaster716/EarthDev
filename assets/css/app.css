@@ -13,6 +13,10 @@ body {
   overflow: hidden;
 }
 
+canvas:focus {
+  outline: none;
+}
+
 html {
   background-color: #17233e;
   -webkit-tap-highlight-color: rgba(
