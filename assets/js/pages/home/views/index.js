@@ -34,27 +34,43 @@ function PrimaryView(props) {
   const [selectedMarker, setSelectedMarker] = useState(false);
   const [autoRotate, setAutoRotate] = useState(true);
 
-  console.log(selectedMarker);
-
   function handleZoom(e) {
     setIsZoomed(!isZoomed);
     setShowButton(!showButton);
     setAutoRotate(false);
-  }
-
-  function closePopup(e) {
-    if (!selectedMarker) {
+    if (isZoomed) {
+      setSelectedMarker(false);
+    } else {
       setSelectedMarker(true);
     }
-    setNewMarker(false);
-    setNewMarkerStage("");
-    setShowButton(true);
+  }
+  console.log(selectedMarker);
+
+  function closePopup(e) {
+    if (newMarker == true && newMarkerStage == "Congrats") {
+      setSelectedMarker(true);
+      setNewMarker(false);
+      setNewMarkerStage("");
+      setShowButton(true);
+    } else if (newMarker == false) {
+      setSelectedMarker(false);
+    } else {
+      setNewMarker(false);
+      setNewMarkerStage("");
+      setShowButton(true);
+    }
+  }
+
+  function openPopupMarker() {
+    console.log(selectedMarker);
+    setSelectedMarker(true);
   }
 
   function onClickBtn() {
     console.log(newMarkerStage);
     if (newMarker == false) {
       setNewMarker(true);
+      setSelectedMarker(false);
       setNewMarkerStage("ChooseMarker");
       setBtnTitle("Accept Location");
     } else if (newMarker == true && newMarkerStage == "ChooseMarker") {
@@ -66,29 +82,10 @@ function PrimaryView(props) {
     } else if (newMarker == true && newMarkerStage == "PaymentInfo") {
       setNewMarkerStage("Congrats");
     } else if (newMarker == true && newMarkerStage == "Congrats") {
-      setNewMarker(false);
-      setNewMarkerStage("");
-      setShowButton(true);
     } else {
     }
   }
 
-  // {details && (
-  //     <div style={{
-  //         background: 'white',
-  //         position: 'absolute',
-  //         fontSize: 20,
-  //         top: 0,
-  //         right: 0,
-  //         padding: 12,
-  //         }}>
-  //         <p>{details}</p>
-  //         <p>
-  //             EVENT: type={event.type}, position=
-  //              {JSON.stringify(event.pointerEventPosition)})
-  //         </p>
-  //     </div>
-  // )}
   return (
     <Container isZoomed={isZoomed}>
       {isZoomed ? null : <ContainerLeft onClick={handleZoom} />}
@@ -98,6 +95,11 @@ function PrimaryView(props) {
         isZoomed={isZoomed}
       >
         <EarthGlobe autoRotate={autoRotate} />
+        {selectedMarker ? (
+          <ContainerCentered>
+            <PopupMark closePopup={closePopup} />
+          </ContainerCentered>
+        ) : null}
         {isZoomed ? null : <ScrollButton />}
         {isZoomed ? <ButtonBack onClick={handleZoom} /> : null}
         {newMarkerStage == "ChooseMarker" ? <MarkerTypes /> : null}
@@ -127,14 +129,14 @@ function PrimaryView(props) {
   );
 }
 
-// {selectedMarker ? <PopupMark closePopup={closePopup} /> : null}
-
 // PrimaryView.propTypes = {
 //   router: PropTypes.object.isRequired,
 //   dispatch: PropTypes.func.isRequired,
 // };
 
 // Add dispatch from redux, for dispatching redux actions
+
+// <EarthGlobe autoRotate={autoRotate} onClick={openPopupMarker} />
 const mapStateToProps = state => ({
   dispatch: state.dispatch
 });

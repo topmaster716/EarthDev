@@ -4,44 +4,16 @@ import ReactGlobe from "react-globe";
 
 var defaultMarkers = [
   {
-    id: 1,
-    city: "Singapore",
-    color: "red",
-    coordinates: [1.3521, 103.8198],
-    value: 50
-  },
-  {
-    id: 2,
-    city: "New York",
-    color: "blue",
-    coordinates: [40.73061, -73.935242],
-    value: 25
-  },
-  {
-    id: 3,
-    city: "San Francisco",
-    color: "orange",
-    coordinates: [37.773972, -122.431297],
-    value: 35
-  },
-  {
-    id: 4,
-    city: "Beijing",
-    color: "gold",
-    coordinates: [39.9042, 116.4074],
-    value: 0
-  },
-  {
     id: 5,
-    city: "London",
+    city: "Kyiv",
     color: "green",
-    coordinates: [51.5074, 0.1278],
+    coordinates: [10.0, 30.0],
     value: 80
   }
 ];
 
 function getTooltipContent(marker) {
-  return `CITY: ${marker.city} (Value: ${marker.value})`;
+  return `CITY: ${marker.city} (Value: ${marker.value}) x: ${event.clientX}, y: ${event.clientY}`;
 }
 
 function EarthGlobe(props) {
@@ -52,6 +24,8 @@ function EarthGlobe(props) {
 
   const [markers, setMarkers] = useState([]);
   const [event, setEvent] = useState(null);
+  const [details, setDetails] = useState(null);
+  //const { onClick } = props;
 
   function onClickMarker(marker, markerObject, event) {
     setEvent({
@@ -73,37 +47,50 @@ function EarthGlobe(props) {
   }
 
   function onClick(event) {
-    console.log(event.clientX, event.clientY);
+    console.log("test");
+    setEvent({
+      type: "CLICK",
+      alert: "Test"
+    });
+    console.log(event);
   }
 
   return (
-    <ReactGlobe
-      markers={markers}
-      markerOptions={{
-        getTooltipContent
-      }}
-      globeOptions={{
-        enableBackground: false,
-        // need to enable glow with our color, to remove white
-        enableGlow: true,
-        glowColor: "#17233e",
-        enableClouds: false,
-        texture: "http://localhost:4000/images/texture7.svg"
-      }}
-      cameraOptions={{
-        autoRotateSpeed: 1,
-        enableAutoRotate: props.autoRotate,
-        enableRotate: true,
-        //rotateSpeed: 0.5
-        enableZoom: true,
-        distanceRadiusScale: 10,
-        maxDistanceRadiusScale: 15,
-        zoomSpeed: 1
-      }}
-      onClickMarker={onClickMarker}
-      onDefocus={onDefocus}
-      onClick={onClickMarker}
-    />
+    <div style={{ height: "100%" }}>
+      <ReactGlobe
+        markers={markers}
+        markerOptions={{
+          getTooltipContent
+        }}
+        globeOptions={{
+          enableBackground: false,
+          // need to enable glow with our color, to remove white
+          enableGlow: true,
+          glowColor: "#17233e",
+          enableClouds: false,
+          texture: "http://localhost:4000/images/texture7.svg"
+        }}
+        cameraOptions={{
+          autoRotateSpeed: 1,
+          enableAutoRotate: props.autoRotate,
+          enableRotate: true,
+          //rotateSpeed: 0.5
+          enableZoom: true,
+          distanceRadiusScale: 10,
+          maxDistanceRadiusScale: 15,
+          zoomSpeed: 1
+        }}
+        onClickMarker={onClickMarker}
+        onDefocus={onDefocus}
+        onClick={onClick}
+      />
+      <button
+        style={{ position: "absolute", top: 0 }}
+        onClick={() => setMarkers(randomMarkers)}
+      >
+        Set markers
+      </button>
+    </div>
   );
 }
 
