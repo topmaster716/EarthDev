@@ -44,7 +44,7 @@ function getTooltipContent(marker) {
   return `CITY: ${marker.city} (Value: ${marker.value})`;
 }
 
-function EarthGlobe() {
+function EarthGlobe(props) {
   const randomMarkers = defaultMarkers.map(marker => ({
     ...marker,
     value: Math.floor(Math.random() * 100)
@@ -88,16 +88,18 @@ function EarthGlobe() {
         enableGlow: true,
         glowColor: "#17233e",
         enableClouds: false,
-        texture: "http://localhost:4000/images/texture.svg"
+        texture: "http://localhost:4000/images/texture7.svg"
       }}
-      cameraOptions={
-        {
-          //autoRotateSpeed: 1,
-          //enableAutoRotate: true,
-          //enableRotate: true,
-          //rotateSpeed: 0.5
-        }
-      }
+      cameraOptions={{
+        autoRotateSpeed: 1,
+        enableAutoRotate: props.autoRotate,
+        enableRotate: true,
+        //rotateSpeed: 0.5
+        enableZoom: true,
+        distanceRadiusScale: 10,
+        maxDistanceRadiusScale: 15,
+        zoomSpeed: 1
+      }}
       onClickMarker={onClickMarker}
       onDefocus={onDefocus}
       onClick={onClickMarker}

@@ -32,12 +32,14 @@ function PrimaryView(props) {
   const [showButton, setShowButton] = useState(false);
   const [btnTitle, setBtnTitle] = useState("Proceed");
   const [selectedMarker, setSelectedMarker] = useState(false);
+  const [autoRotate, setAutoRotate] = useState(true);
 
   console.log(selectedMarker);
 
   function handleZoom(e) {
     setIsZoomed(!isZoomed);
     setShowButton(!showButton);
+    setAutoRotate(false);
   }
 
   function closePopup(e) {
@@ -95,7 +97,7 @@ function PrimaryView(props) {
         onDoubleClick={handleZoom}
         isZoomed={isZoomed}
       >
-        <EarthGlobe />
+        <EarthGlobe autoRotate={autoRotate} />
         {isZoomed ? null : <ScrollButton />}
         {isZoomed ? <ButtonBack onClick={handleZoom} /> : null}
         {newMarkerStage == "ChooseMarker" ? <MarkerTypes /> : null}
