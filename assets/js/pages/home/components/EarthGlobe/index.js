@@ -35,6 +35,7 @@ function EarthGlobe(props) {
       pointerEventPosition: { x: event.clientX, y: event.clientY }
     });
     setDetails(getTooltipContent(marker));
+    console.log(event);
   }
 
   function onDefocus(previousCoordinates, event) {
@@ -75,7 +76,7 @@ function EarthGlobe(props) {
           enableAutoRotate: props.autoRotate,
           enableRotate: true,
           //rotateSpeed: 0.5
-          enableZoom: true,
+          enableZoom: props.zoom,
           distanceRadiusScale: 10,
           maxDistanceRadiusScale: 15,
           zoomSpeed: 1

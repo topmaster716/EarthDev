@@ -33,18 +33,15 @@ function PrimaryView(props) {
   const [btnTitle, setBtnTitle] = useState("Proceed");
   const [selectedMarker, setSelectedMarker] = useState(false);
   const [autoRotate, setAutoRotate] = useState(true);
+  const [zoom, setZoom] = useState(false);
+  console.log(isZoomed);
 
   function handleZoom(e) {
     setIsZoomed(!isZoomed);
     setShowButton(!showButton);
     setAutoRotate(false);
-    if (isZoomed) {
-      setSelectedMarker(false);
-    } else {
-      setSelectedMarker(true);
-    }
+    setZoom(!zoom);
   }
-  console.log(selectedMarker);
 
   function closePopup(e) {
     if (newMarker == true && newMarkerStage == "Congrats") {
@@ -62,12 +59,12 @@ function PrimaryView(props) {
   }
 
   function openPopupMarker() {
-    console.log(selectedMarker);
+    //console.log(selectedMarker);
     setSelectedMarker(true);
   }
 
   function onClickBtn() {
-    console.log(newMarkerStage);
+    //console.log(newMarkerStage);
     if (newMarker == false) {
       setNewMarker(true);
       setSelectedMarker(false);
@@ -90,11 +87,11 @@ function PrimaryView(props) {
     <Container isZoomed={isZoomed}>
       {isZoomed ? null : <ContainerLeft onClick={handleZoom} />}
       <ContainerEarth
-        onWheel={handleZoom}
+        //onWheel={handleZoom}
         onDoubleClick={handleZoom}
         isZoomed={isZoomed}
       >
-        <EarthGlobe autoRotate={autoRotate} />
+        <EarthGlobe autoRotate={autoRotate} zoom={zoom} />
         {selectedMarker ? (
           <ContainerCentered>
             <PopupMark closePopup={closePopup} />
