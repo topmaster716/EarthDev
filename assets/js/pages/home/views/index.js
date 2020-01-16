@@ -14,6 +14,7 @@ import PopupInfo from "../components/PopupInfo";
 import PopupPayment from "../components/PopupPayment";
 import PopupCongrats from "../components/PopupCongrats";
 import PopupMark from "../components/PopupMark";
+import ButtonBack from "../components/ButtonBack";
 
 //Styles
 import {
@@ -88,7 +89,7 @@ function PrimaryView(props) {
   // )}
   return (
     <Container isZoomed={isZoomed}>
-      {isZoomed ? null : <ContainerLeft />}
+      {isZoomed ? null : <ContainerLeft onClick={handleZoom} />}
       <ContainerEarth
         onWheel={handleZoom}
         onDoubleClick={handleZoom}
@@ -96,6 +97,7 @@ function PrimaryView(props) {
       >
         <EarthGlobe />
         {isZoomed ? null : <ScrollButton />}
+        {isZoomed ? <ButtonBack onClick={handleZoom} /> : null}
         {newMarkerStage == "ChooseMarker" ? <MarkerTypes /> : null}
         {newMarkerStage == "GeneralInfo" ? (
           <ContainerCentered>
