@@ -36,6 +36,41 @@ function PrimaryView(props) {
   const [zoom, setZoom] = useState(false);
   console.log(isZoomed);
 
+  let stageData;
+
+  switch (newMarkerStage) {
+    case "ChooseMarker":
+      stageData = <MarkerTypes />;
+      break;
+    case "GeneralInfo":
+      stageData = (
+        <ContainerCentered>
+          <PopupInfo onClick={onClickBtn} closePopup={closePopup} />
+        </ContainerCentered>
+      );
+      break;
+    case "PaymentInfo":
+      stageData = (
+        <ContainerCentered>
+          <PopupPayment onClick={onClickBtn} closePopup={closePopup} />
+        </ContainerCentered>
+      );
+      break;
+    case "Congrats":
+      stageData = (
+        <ContainerCentered>
+          <PopupCongrats closePopup={closePopup} />
+        </ContainerCentered>
+      );
+      break;
+    default:
+      stageData = null;
+      break;
+  }
+
+  console.log(newMarkerStage);
+  console.log(stageData);
+
   function handleZoom(e) {
     setIsZoomed(!isZoomed);
     setShowButton(!showButton);
@@ -70,16 +105,14 @@ function PrimaryView(props) {
       setSelectedMarker(false);
       setNewMarkerStage("ChooseMarker");
       setBtnTitle("Accept Location");
-    } else if (newMarker == true && newMarkerStage == "ChooseMarker") {
+    } else if (newMarker && newMarkerStage == "ChooseMarker") {
       setNewMarkerStage("GeneralInfo");
       setBtnTitle("Proceed");
       setShowButton(false);
-    } else if (newMarker == true && newMarkerStage == "GeneralInfo") {
+    } else if (newMarker && newMarkerStage == "GeneralInfo") {
       setNewMarkerStage("PaymentInfo");
-    } else if (newMarker == true && newMarkerStage == "PaymentInfo") {
+    } else if (newMarker && newMarkerStage == "PaymentInfo") {
       setNewMarkerStage("Congrats");
-    } else if (newMarker == true && newMarkerStage == "Congrats") {
-    } else {
     }
   }
 
@@ -91,6 +124,7 @@ function PrimaryView(props) {
         onDoubleClick={handleZoom}
         isZoomed={isZoomed}
       >
+        {stageData}
         <EarthGlobe autoRotate={autoRotate} zoom={zoom} />
         {selectedMarker ? (
           <ContainerCentered>
@@ -99,22 +133,6 @@ function PrimaryView(props) {
         ) : null}
         {isZoomed ? null : <ScrollButton />}
         {isZoomed ? <ButtonBack onClick={handleZoom} /> : null}
-        {newMarkerStage == "ChooseMarker" ? <MarkerTypes /> : null}
-        {newMarkerStage == "GeneralInfo" ? (
-          <ContainerCentered>
-            <PopupInfo onClick={onClickBtn} closePopup={closePopup} />
-          </ContainerCentered>
-        ) : null}
-        {newMarkerStage == "PaymentInfo" ? (
-          <ContainerCentered>
-            <PopupPayment onClick={onClickBtn} closePopup={closePopup} />
-          </ContainerCentered>
-        ) : null}
-        {newMarkerStage == "Congrats" ? (
-          <ContainerCentered>
-            <PopupCongrats closePopup={closePopup} />
-          </ContainerCentered>
-        ) : null}
       </ContainerEarth>
       {showButton ? (
         <ContainerButton>
