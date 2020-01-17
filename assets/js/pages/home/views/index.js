@@ -34,7 +34,6 @@ function PrimaryView(props) {
   const [selectedMarker, setSelectedMarker] = useState(false);
   const [autoRotate, setAutoRotate] = useState(true);
   const [zoom, setZoom] = useState(false);
-  console.log(isZoomed);
 
   let stageData;
 
@@ -68,14 +67,16 @@ function PrimaryView(props) {
       break;
   }
 
-  console.log(newMarkerStage);
-  console.log(stageData);
-
   function handleZoom(e) {
     setIsZoomed(!isZoomed);
     setShowButton(!showButton);
     setAutoRotate(false);
     setZoom(!zoom);
+    if (isZoomed) {
+      setNewMarkerStage("");
+      setBtnTitle("Proceed");
+      setNewMarker(false);
+    }
   }
 
   function closePopup(e) {
@@ -115,6 +116,8 @@ function PrimaryView(props) {
       setNewMarkerStage("Congrats");
     }
   }
+
+  console.log(newMarker);
 
   return (
     <Container isZoomed={isZoomed}>
