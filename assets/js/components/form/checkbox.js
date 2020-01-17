@@ -1,54 +1,32 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import MaterialCheckbox from '@material-ui/core/Checkbox';
-import FormHelperText from '@material-ui/core/FormHelperText';
+import React from "react";
+import { CheckboxContainer, CheckboxText, ErrorText } from "./styles";
+import Checkbox from "@material-ui/core/Checkbox";
 
-const styles = theme => ({
-  container: {
-   width: '100%'
-  },
-  checkbox: {
-    marginLeft: '-12px' // Setting paddingLeft breaks ripple effect
-  },
-  helperText: {
-    marginTop: '0px',
-    width: '100%',
-    display: 'inline'
-  },
-});
+//import { Container, CheckboxStyled } from "./styles";
 
-class Checkbox extends React.Component {
+// const styles = theme => ({
+//   container: {
+//    width: '100%'
+//   },
+//   checkbox: {
+//     marginLeft: '-12px' // Setting paddingLeft breaks ripple effect
+//   },
+//   helperText: {
+//     marginTop: '0px',
+//     width: '100%',
+//     display: 'inline'
+//   },
+// });
 
-  render() {
-    const { 
-      classes,
-      checked,
-      onChange,
-      label,
-      helperText,
-      disabled
-    } = this.props;
+function CheckboxForm(props) {
+  const { checked, onChange, label, disabled, error } = props;
 
-    return (
-      <div className={classes.container} >
-        <MaterialCheckbox
-          value="checked"
-          color="primary"
-          className={classes.checkbox}
-          checked={checked}
-          onChange={onChange}
-          disabled={disabled}
-        />
-        {label}
-        <FormHelperText className={classes.helperText}>{helperText}</FormHelperText>
-      </div>
-    );
-  }
+  return (
+    <CheckboxContainer required error={false} component="fieldset">
+      <CheckboxText control={<Checkbox color="primary" />} label={label} />
+      <ErrorText>You can display an error</ErrorText>
+    </CheckboxContainer>
+  );
 }
 
-Checkbox.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles, { withTheme: true })(Checkbox);
+export default CheckboxForm;

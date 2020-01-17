@@ -117,8 +117,6 @@ function PrimaryView(props) {
     }
   }
 
-  console.log(newMarker);
-
   return (
     <Container isZoomed={isZoomed}>
       {isZoomed ? null : <ContainerLeft onClick={handleZoom} />}
@@ -127,6 +125,7 @@ function PrimaryView(props) {
         onDoubleClick={handleZoom}
         isZoomed={isZoomed}
       >
+        <PopupInfo closePopup={closePopup} />
         {stageData}
         <EarthGlobe autoRotate={autoRotate} zoom={zoom} />
         {selectedMarker ? (

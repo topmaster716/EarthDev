@@ -57,42 +57,41 @@ function EarthGlobe(props) {
   }
 
   return (
-    <div style={{ height: "100%" }}>
-      <ReactGlobe
-        markers={markers}
-        markerOptions={{
-          getTooltipContent
-        }}
-        globeOptions={{
-          enableBackground: false,
-          // need to enable glow with our color, to remove white
-          enableGlow: true,
-          glowColor: "#17233e",
-          enableClouds: false,
-          texture: "http://localhost:4000/images/texture7.svg"
-        }}
-        cameraOptions={{
-          autoRotateSpeed: 1,
-          enableAutoRotate: props.autoRotate,
-          enableRotate: true,
-          //rotateSpeed: 0.5
-          enableZoom: props.zoom,
-          distanceRadiusScale: 10,
-          maxDistanceRadiusScale: 15,
-          zoomSpeed: 1
-        }}
-        onClickMarker={onClickMarker}
-        onDefocus={onDefocus}
-        onClick={onClick}
-      />
-      <button
-        style={{ position: "absolute", top: 0 }}
-        onClick={() => setMarkers(randomMarkers)}
-      >
-        Set markers
-      </button>
-    </div>
+    <ReactGlobe
+      markers={markers}
+      markerOptions={{
+        getTooltipContent
+      }}
+      globeOptions={{
+        enableBackground: false,
+        // need to enable glow with our color, to remove white
+        enableGlow: true,
+        glowColor: "#17233e",
+        enableClouds: false,
+        texture: "http://localhost:4000/images/texture7.svg"
+      }}
+      cameraOptions={{
+        autoRotateSpeed: 1,
+        enableAutoRotate: props.autoRotate,
+        enableRotate: true,
+        //rotateSpeed: 0.5
+        enableZoom: props.zoom,
+        distanceRadiusScale: 10,
+        maxDistanceRadiusScale: 15,
+        zoomSpeed: 1
+      }}
+      onClickMarker={onClickMarker}
+      onDefocus={onDefocus}
+      onClick={onClick}
+    />
   );
 }
 
 export default EarthGlobe;
+
+// <button
+//        style={{ position: "absolute", top: 0 }}
+//        onClick={() => setMarkers(randomMarkers)}
+//      >
+//        Set markers
+//      </button>
