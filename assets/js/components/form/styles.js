@@ -7,6 +7,9 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import MaterialButton from "@material-ui/core/Button";
 
 export const FormTextField = styled(MaterialTextField)`
+	margin-top: 8px;
+	margin-bottom: 8px;
+
 	label {
 		color: #17233e;
 		background: #ffffff;
@@ -36,6 +39,9 @@ export const FormTextField = styled(MaterialTextField)`
 `;
 
 export const StyledTextArea = styled(MaterialTextField)`
+	margin-top: 8px;
+	margin-bottom: 8px;
+
 	label {
 		color: #17233e;
 		background: #ffffff;
@@ -56,7 +62,8 @@ export const StyledTextArea = styled(MaterialTextField)`
 	}
 
 	.MuiOutlinedInput-multiline {
-		height: 140px;
+		height: 126px;
+		padding: 12px 14px;
 	}
 
 	.MuiFormHelperText-contained {
@@ -69,17 +76,19 @@ export const StyledTextArea = styled(MaterialTextField)`
 		color: #4c91fa;
 	}
 
-	.MuiOutlinedInput-input {
-		padding: 0;
+	.MuiOutlinedInput-multiline {
+		padding: 12px 14px;
 	}
 `;
 
 export const CheckboxContainer = styled(FormControl)``;
 
 export const CheckboxText = styled(FormControlLabel)`
-	font-size: 12px;
-	color: #494949;
-	opacity: 1;
+	.MuiTypography-body1 {
+		font-size: 12px;
+		color: #494949;
+		opacity: 1;
+	}
 
 	.Mui-checked {
 		color: #4c91fa;
