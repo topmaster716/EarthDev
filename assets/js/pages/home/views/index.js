@@ -125,7 +125,6 @@ function PrimaryView(props) {
         onDoubleClick={handleZoom}
         isZoomed={isZoomed}
       >
-        <PopupInfo closePopup={closePopup} />
         {stageData}
         <EarthGlobe autoRotate={autoRotate} zoom={zoom} />
         {selectedMarker ? (
