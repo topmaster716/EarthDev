@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Component } from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -24,6 +24,7 @@ import {
   ContainerCentered
 } from "./styles";
 
+
 function PrimaryView(props) {
   const [details, setDetails] = useState(null);
   const [isZoomed, setIsZoomed] = useState(false);
@@ -32,8 +33,6 @@ function PrimaryView(props) {
   const [showButton, setShowButton] = useState(false);
   const [btnTitle, setBtnTitle] = useState("Proceed");
   const [selectedMarker, setSelectedMarker] = useState(false);
-  const [autoRotate, setAutoRotate] = useState(true);
-  const [zoom, setZoom] = useState(false);
 
   let stageData;
 
@@ -70,8 +69,6 @@ function PrimaryView(props) {
   function handleZoom(e) {
     setIsZoomed(!isZoomed);
     setShowButton(!showButton);
-    setAutoRotate(false);
-    setZoom(!zoom);
     if (isZoomed) {
       setNewMarkerStage("");
       setBtnTitle("Proceed");
@@ -121,12 +118,9 @@ function PrimaryView(props) {
     <Container isZoomed={isZoomed}>
       {isZoomed ? null : <ContainerLeft onClick={handleZoom} />}
       <ContainerEarth
-        //onWheel={handleZoom}
-        onDoubleClick={handleZoom}
-        isZoomed={isZoomed}
       >
         {stageData}
-        <EarthGlobe autoRotate={autoRotate} zoom={zoom} />
+        <EarthGlobe />
         {selectedMarker ? (
           <ContainerCentered>
             <PopupMark closePopup={closePopup} />
@@ -159,3 +153,7 @@ const mapStateToProps = state => ({
 
 // connect is redux function, to connect with react component
 export default connect(mapStateToProps)(PrimaryView);
+
+
+
+
