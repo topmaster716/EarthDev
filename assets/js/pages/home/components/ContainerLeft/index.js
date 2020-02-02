@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import ButtonBig from "../../../../components/buttons/ButtonBig";
-import { ContainerHeader, Title, Content } from "./styles";
+import { ContainerTitle, Title, Content } from "./styles";
 
 function ContainerLeft(props) {
 	const { onClick } = props;
 
 	return (
-		<ContainerHeader>
+		<ContainerTitle>
 			<Title>Leave your mark</Title>
 			<Content>Choose your marker</Content>
 			<Content>Tell your story about helping this World.</Content>
@@ -16,7 +16,7 @@ function ContainerLeft(props) {
 				btnId="proceed-btn"
 				onClick={onClick}
 			/>
-		</ContainerHeader>
+		</ContainerTitle>
 	);
 }
 

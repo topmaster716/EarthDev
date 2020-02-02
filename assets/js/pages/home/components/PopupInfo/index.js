@@ -53,7 +53,6 @@ class PopupInfo extends Component {
                     value={this.state.nicknameValue}
                     name="nicknameValue"
                     onChange={this.handleInputChange}
-                    error={true}
                     helperText="Please enter a valid nickname."
                 />
                 <TextField

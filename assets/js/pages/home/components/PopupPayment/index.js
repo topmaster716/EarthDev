@@ -27,8 +27,7 @@ class PopupPayment extends Component {
     }
 
     onChange(e) {
-        console.log(e);
-        this.setState({ textareaValue: e.target.value });
+        this.setState({ nameValue: e.target.value });
     }
 
     render() {

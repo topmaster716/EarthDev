@@ -1,5 +1,7 @@
 import styled, { keyframes } from "styled-components";
 
+import { device } from "../../../components/styles";
+
 const AppearAnimation = keyframes`
   0% { max-width: 60%; }
   100% { max-width: 100%; }
@@ -20,10 +22,14 @@ export const Container = styled.div`
     display: flex;
     justify-content: flex-end;
     align-items: center;
+
+    @media ${device.tillLaptop} {
+        flex-flow: row wrap;
+    }
 `;
 
 export const ContainerEarth = styled.div`
-    max-width: ${props => (props.isZoomed ? "100%" : "60%")};
+    // max-width: ${props => (props.isZoomed ? "100%" : "60%")};
     animation: ${props =>
             props.isZoomed ? AppearAnimation : DisppearAnimation}
         2s ease-in-out;
@@ -44,6 +50,7 @@ export const ContainerButton = styled.div`
 //         2s ease-in-out;
 
 export const ContainerCentered = styled.div`
+    z-index: 1;
     position: absolute;
     top: 50%;
     left: 50%;
