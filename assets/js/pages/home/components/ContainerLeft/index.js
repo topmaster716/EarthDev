@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ButtonBig from "../../../../components/buttons/ButtonBig";
-import { ContainerTitle, Title, Content } from "./styles";
+import { ContainerTitle, Title, Content, ContainerButton } from "./styles";
 
 function ContainerLeft(props) {
 	const { onClick } = props;
@@ -11,11 +11,9 @@ function ContainerLeft(props) {
 			<Content>Choose your marker</Content>
 			<Content>Tell your story about helping this World.</Content>
 			<Content>Be the one in a million.</Content>
-			<ButtonBig
-				btnTitle="Proceed"
-				btnId="proceed-btn"
-				onClick={onClick}
-			/>
+			<ContainerButton>
+				<ButtonBig btnTitle="Proceed" onClick={onClick} />
+			</ContainerButton>
 		</ContainerTitle>
 	);
 }

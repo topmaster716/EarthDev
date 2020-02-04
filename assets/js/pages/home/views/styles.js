@@ -2,14 +2,26 @@ import styled, { keyframes } from "styled-components";
 
 import { device } from "../../../components/styles";
 
+// const AppearAnimation = keyframes`
+//   0% { width: 55%; }
+//   100% { width: 100%; }
+// `;
+
+// const DisppearAnimation = keyframes`
+//     0% { width: 100%; }
+//   100% { width: 55%;  }
+// `;
+
 const AppearAnimation = keyframes`
-  0% { max-width: 60%; }
-  100% { max-width: 100%; }
+    0% { opacity: 0 };
+    90% { opacity: 0 };
+    100% { opacity: 1 };
 `;
 
 const DisppearAnimation = keyframes`
-    0% { max-width: 100%; }
-  100% { max-width: 60%; }
+    0% { opacity: 0 };
+    70% { opacity: 0 };
+    100% { opacity: 1 };
 `;
 
 export const Container = styled.div`
@@ -20,7 +32,7 @@ export const Container = styled.div`
     width: 100%;
     margin: 0 auto;
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
     align-items: center;
 
     @media ${device.tillLaptop} {
@@ -29,12 +41,11 @@ export const Container = styled.div`
 `;
 
 export const ContainerEarth = styled.div`
-    // max-width: ${props => (props.isZoomed ? "100%" : "60%")};
     animation: ${props =>
             props.isZoomed ? AppearAnimation : DisppearAnimation}
-        2s ease-in-out;
+        1s ease-in-out;
     width: 100%;
-    height: ${props => (props.isZoomed ? "100%" : "70%")};
+    height: 100%;
 `;
 
 export const ContainerButton = styled.div`

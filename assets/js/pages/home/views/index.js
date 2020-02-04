@@ -24,33 +24,32 @@ import {
   ContainerCentered
 } from "./styles";
 
-
 function PrimaryView(props) {
-  const [details, setDetails] = useState(null);
   const [isZoomed, setIsZoomed] = useState(false);
   const [newMarker, setNewMarker] = useState(false);
   const [newMarkerStage, setNewMarkerStage] = useState("");
   const [showButton, setShowButton] = useState(false);
   const [btnTitle, setBtnTitle] = useState("Proceed");
-  const [selectedMarker, setSelectedMarker] = useState(false);
+  const [selectedMarker, setSelectedMarker] = useState("");
+  const [newMarkerType, setNewMarkerType] = useState("");
 
   let stageData;
 
   switch (newMarkerStage) {
     case "ChooseMarker":
-      stageData = <MarkerTypes />;
+      stageData = <MarkerTypes onClick={e => selectMarkerType(e)} />;
       break;
     case "GeneralInfo":
       stageData = (
         <ContainerCentered>
-          <PopupInfo onClick={onClickBtn} closePopup={closePopup} />
+          <PopupInfo onClick={setStage} closePopup={closePopup} />
         </ContainerCentered>
       );
       break;
     case "PaymentInfo":
       stageData = (
         <ContainerCentered>
-          <PopupPayment onClick={onClickBtn} closePopup={closePopup} />
+          <PopupPayment onClick={setStage} closePopup={closePopup} />
         </ContainerCentered>
       );
       break;
@@ -66,17 +65,34 @@ function PrimaryView(props) {
       break;
   }
 
+  function selectMarkerType(e) {
+    setNewMarkerType(e.currentTarget.id);
+  }
+
   function handleZoom(e) {
-    setIsZoomed(!isZoomed);
-    setShowButton(!showButton);
-    if (isZoomed) {
-      setNewMarkerStage("");
+    if (!isZoomed) {
+      setIsZoomed(true);
+      setShowButton(true);
       setBtnTitle("Proceed");
+    } else if (isZoomed) {
+      setIsZoomed(false);
+      setShowButton(false);
+      setNewMarkerStage("");
       setNewMarker(false);
     }
   }
 
-  function closePopup(e) {
+  function wheelZoom(e) {
+    if (!isZoomed && e.deltaY < 0) {
+      setIsZoomed(true);
+    }
+  }
+
+  console.log("isZoomed", isZoomed);
+  console.log("stage", newMarkerStage);
+  console.log("setShowButton", showButton);
+
+  function closePopup() {
     if (newMarker == true && newMarkerStage == "Congrats") {
       setSelectedMarker(true);
       setNewMarker(false);
@@ -96,8 +112,7 @@ function PrimaryView(props) {
     setSelectedMarker(true);
   }
 
-  function onClickBtn() {
-    //console.log(newMarkerStage);
+  function setStage() {
     if (newMarker == false) {
       setNewMarker(true);
       setSelectedMarker(false);
@@ -114,13 +129,21 @@ function PrimaryView(props) {
     }
   }
 
+  function setMarker() {
+    //console.log();
+  }
+
+  function handleZoomNew(e) {
+    //console.log("test");
+    //console.log(e);
+  }
+
   return (
     <Container isZoomed={isZoomed}>
       {isZoomed ? null : <ContainerLeft onClick={handleZoom} />}
-      <ContainerEarth
-      >
+      <ContainerEarth isZoomed={isZoomed} onWheel={e => wheelZoom(e)}>
         {stageData}
-        <EarthGlobe />
+        <EarthGlobe newMarkerType={newMarkerType} />
         {selectedMarker ? (
           <ContainerCentered>
             <PopupMark closePopup={closePopup} />
@@ -131,7 +154,7 @@ function PrimaryView(props) {
       </ContainerEarth>
       {showButton ? (
         <ContainerButton>
-          <ButtonBig btnTitle={btnTitle} onClick={onClickBtn} />
+          <ButtonBig btnTitle={btnTitle} onClick={setStage} />
         </ContainerButton>
       ) : null}
       {isZoomed ? null : <Footer />}
@@ -153,7 +176,3 @@ const mapStateToProps = state => ({
 
 // connect is redux function, to connect with react component
 export default connect(mapStateToProps)(PrimaryView);
-
-
-
-
