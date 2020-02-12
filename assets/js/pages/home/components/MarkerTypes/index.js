@@ -22,7 +22,7 @@ function MarkerTypes(props) {
         <ContainerMarkers>
             <Title>Choose the type of marker</Title>
             <MarkersList>
-                <MarkersListItem onClick={onClick} id="child-marker">
+                <MarkersListItem onClick={ e => onClick(e)} id="child-marker">
                     <ChildMarker />
                 </MarkersListItem>
                 <MarkersListItem onClick={onClick} id="paw-marker">

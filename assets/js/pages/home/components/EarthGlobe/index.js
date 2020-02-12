@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import Actions from "../../actions";
 
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4maps from "@amcharts/amcharts4/maps";
@@ -10,10 +11,10 @@ import HeartMarker from "../../../../components/images/markers/HeartMarker";
 //am4core.useTheme(am4themes_animated);
 
 function EarthGlobe(props) {
-    const { home } = props;
-    const { markers } = home;
-    const { newMarkerType } = props;
-    //console.log(newMarkerType);
+
+    const { markers, dispatch } = props;
+
+    console.log(dispatch)
 
     useEffect(
         () => {
@@ -79,10 +80,11 @@ function EarthGlobe(props) {
             chart.seriesContainer.events.on("hit", function(ev) {
                 var coords = chart.svgPointToGeo(ev.svgPoint);
                 var newMarker = imageSeries.mapImages.create();
-                marker.href = "./images/markers/heart.svg";
-                newMarker.latitude = coords.latitude;
-                newMarker.longitude = coords.longitude;
-                //console.log(newMarker);
+                dispatch(Actions.setNewMarkerCoords(coords.latitude, coords.longitude));
+                //marker.href = "./images/markers/heart.svg";
+                //newMarker.latitude = coords.latitude;
+                //newMarker.longitude = coords.longitude;
+                console.log(newMarker.latitude, newMarker.longitude);
             });
 
             //console.log(marker);
@@ -150,11 +152,9 @@ function EarthGlobe(props) {
 
     return <div id="chartdiv" style={{ width: "100%", height: "100%" }}></div>;
 }
-
-// Add dispatch from redux, for dispatching redux actions
 const mapStateToProps = state => ({
-    dispatch: state.dispatch,
-    home: state.home
+  dispatch: state.dispatch,
+  home: state.home
 });
 
 // connect is redux function, to connect with react component

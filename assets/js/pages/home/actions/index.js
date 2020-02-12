@@ -31,7 +31,24 @@ const Actions = {
       // TODO: channel.on for new markers 
       //
     }
-  }
+  },
+  setNewMarkerType: id => {
+    return dispatch => {
+      dispatch({
+        type: Constants.SET_NEW_MAKER_TYPE,
+        typeId: id,
+      });
+    };
+  },
+  setNewMarkerCoords: (latitude, longitude) => {
+    return dispatch => {
+      dispatch({
+        type: Constants.SET_NEW_MAKER_COORDS,
+        longitude: longitude,
+        latitude: latitude,
+      });
+    };
+  },
 };
 
 export default Actions;

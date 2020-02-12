@@ -2,6 +2,7 @@ import React, { useState, Component } from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import Actions from "../actions";
 
 //Components
 import ContainerLeft from "../components/ContainerLeft";
@@ -25,6 +26,10 @@ import {
 } from "./styles";
 
 function PrimaryView(props) {
+
+  const { home, dispatch } = props;
+  const { markers, currentMarker } = home;
+
   const [isZoomed, setIsZoomed] = useState(false);
   const [newMarker, setNewMarker] = useState(false);
   const [newMarkerStage, setNewMarkerStage] = useState("");
@@ -35,39 +40,14 @@ function PrimaryView(props) {
 
   let stageData;
 
-  switch (newMarkerStage) {
-    case "ChooseMarker":
-      stageData = <MarkerTypes onClick={e => selectMarkerType(e)} />;
-      break;
-    case "GeneralInfo":
-      stageData = (
-        <ContainerCentered>
-          <PopupInfo onClick={setStage} closePopup={closePopup} />
-        </ContainerCentered>
-      );
-      break;
-    case "PaymentInfo":
-      stageData = (
-        <ContainerCentered>
-          <PopupPayment onClick={setStage} closePopup={closePopup} />
-        </ContainerCentered>
-      );
-      break;
-    case "Congrats":
-      stageData = (
-        <ContainerCentered>
-          <PopupCongrats closePopup={closePopup} />
-        </ContainerCentered>
-      );
-      break;
-    default:
-      stageData = null;
-      break;
+   function selectMarkerType(e) {
+    setNewMarkerType(e.currentTarget.id);
+    dispatch(Actions.setNewMarkerType(e.currentTarget.id));
   }
 
-  function selectMarkerType(e) {
-    setNewMarkerType(e.currentTarget.id);
-  }
+  console.log(currentMarker)
+
+
 
   function handleZoom(e) {
     if (!isZoomed) {
@@ -89,8 +69,8 @@ function PrimaryView(props) {
   }
 
   console.log("isZoomed", isZoomed);
-  console.log("stage", newMarkerStage);
-  console.log("setShowButton", showButton);
+  // console.log("stage", newMarkerStage);
+  // console.log("setShowButton", showButton);
 
   function closePopup() {
     if (newMarker == true && newMarkerStage == "Congrats") {
@@ -138,12 +118,43 @@ function PrimaryView(props) {
     //console.log(e);
   }
 
+  switch (newMarkerStage) {
+    case "ChooseMarker":
+      stageData = <MarkerTypes onClick={e => selectMarkerType(e)} />;
+      break;
+    case "GeneralInfo":
+      stageData = (
+        <ContainerCentered>
+          <PopupInfo onClick={setStage} closePopup={closePopup} />
+        </ContainerCentered>
+      );
+      break;
+    case "PaymentInfo":
+      stageData = (
+        <ContainerCentered>
+          <PopupPayment onClick={setStage} closePopup={closePopup} />
+        </ContainerCentered>
+      );
+      break;
+    case "Congrats":
+      stageData = (
+        <ContainerCentered>
+          <PopupCongrats closePopup={closePopup} />
+        </ContainerCentered>
+      );
+      break;
+    default:
+      stageData = null;
+      break;
+  }
+
+
   return (
     <Container isZoomed={isZoomed}>
       {isZoomed ? null : <ContainerLeft onClick={handleZoom} />}
       <ContainerEarth isZoomed={isZoomed} onWheel={e => wheelZoom(e)}>
         {stageData}
-        <EarthGlobe newMarkerType={newMarkerType} />
+        <EarthGlobe markers={markers} />
         {selectedMarker ? (
           <ContainerCentered>
             <PopupMark closePopup={closePopup} />
@@ -171,7 +182,8 @@ function PrimaryView(props) {
 
 // <EarthGlobe autoRotate={autoRotate} onClick={openPopupMarker} />
 const mapStateToProps = state => ({
-  dispatch: state.dispatch
+  dispatch: state.dispatch,
+  home: state.home
 });
 
 // connect is redux function, to connect with react component
