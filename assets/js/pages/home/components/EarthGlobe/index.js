@@ -14,8 +14,6 @@ function EarthGlobe(props) {
 
     const { markers, dispatch } = props;
 
-    console.log(dispatch)
-
     useEffect(
         () => {
             let chart = am4core.create("chartdiv", am4maps.MapChart);
@@ -81,10 +79,10 @@ function EarthGlobe(props) {
                 var coords = chart.svgPointToGeo(ev.svgPoint);
                 var newMarker = imageSeries.mapImages.create();
                 dispatch(Actions.setNewMarkerCoords(coords.latitude, coords.longitude));
-                //marker.href = "./images/markers/heart.svg";
-                //newMarker.latitude = coords.latitude;
-                //newMarker.longitude = coords.longitude;
-                console.log(newMarker.latitude, newMarker.longitude);
+                marker.href = "./images/markers/heart.svg";
+                newMarker.latitude = coords.latitude;
+                newMarker.longitude = coords.longitude;
+                dispatch(Actions.addNewMarker());
             });
 
             //console.log(marker);

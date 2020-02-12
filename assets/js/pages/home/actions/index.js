@@ -35,17 +35,26 @@ const Actions = {
   setNewMarkerType: id => {
     return dispatch => {
       dispatch({
-        type: Constants.SET_NEW_MAKER_TYPE,
+        type: Constants.SET_NEW_MARKER_TYPE,
         typeId: id,
       });
     };
   },
+
   setNewMarkerCoords: (latitude, longitude) => {
     return dispatch => {
       dispatch({
-        type: Constants.SET_NEW_MAKER_COORDS,
-        longitude: longitude,
+        type: Constants.SET_NEW_MARKER_COORDS,
         latitude: latitude,
+        longitude: longitude,
+      });
+    };
+  },
+
+  addNewMarker: () => {
+    return dispatch => {
+      dispatch({
+        type: Constants.ADD_NEW_MARKER,
       });
     };
   },

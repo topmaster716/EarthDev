@@ -13,7 +13,7 @@ const initialState = {
     id: null,
     typeId: null,
     name: null,
-    image: null,
+    image: "./images/markers/heart.svg",
     longitude: null,
     latitude: null,
   },
@@ -32,7 +32,7 @@ export default function reducer(state = initialState, action = {}) {
       return initialState;
 
   
-    case Constants.SET_NEW_MAKER_TYPE:
+    case Constants.SET_NEW_MARKER_TYPE:
       return {
         ...state,
         currentMarker: {...state.currentMarker, typeId: action.typeId}
@@ -41,8 +41,15 @@ export default function reducer(state = initialState, action = {}) {
     case Constants.SET_NEW_MARKER_COORDS: 
       return {
         ...state,
-        currentMarker: {...state.currentMarker, longitude: action.longitude, latitude: action.latitude}
-      };     
+        currentMarker: {...state.currentMarker, latitude:action.latitude, longitude: action.longitude}
+      };    
+
+    case Constants.ADD_NEW_MARKER: 
+      return {
+        ...state,
+        currentMarker: currentMarker,
+      };    
+
     default:
       return state;
   }
