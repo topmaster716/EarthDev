@@ -30,7 +30,7 @@ function TextField(props) {
       name={name}
       onChange={onChange}
       error={error}
-      helperText={helperText}
+      helperText={error? helperText : null}
       disabled={disabled}
       placeholder={placeholder}
       variant="outlined"

@@ -32,11 +32,11 @@ const Actions = {
       //
     }
   },
-  setNewMarkerType: id => {
+  setNewMarkerType: markerType => {
     return dispatch => {
       dispatch({
         type: Constants.SET_NEW_MARKER_TYPE,
-        typeId: id,
+        markerType: markerType,
       });
     };
   },

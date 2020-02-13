@@ -36,17 +36,16 @@ function PrimaryView(props) {
   const [showButton, setShowButton] = useState(false);
   const [btnTitle, setBtnTitle] = useState("Proceed");
   const [selectedMarker, setSelectedMarker] = useState("");
-  const [newMarkerType, setNewMarkerType] = useState("");
+  //const [newMarkerType, setNewMarkerType] = useState("");
 
   let stageData;
 
    function selectMarkerType(e) {
-    setNewMarkerType(e.currentTarget.name);
-    console.log(e.currentTarget.id)
-    dispatch(Actions.setNewMarkerType(e.currentTarget.id));
+    //console.log(e.currentTarget.getAttribute("name"))
+    dispatch(Actions.setNewMarkerType(e.currentTarget.getAttribute("name")));
   }
 
-  console.log(currentMarker)
+  //console.log(currentMarker)
 
   function handleZoom(e) {
     if (!isZoomed) {
@@ -119,7 +118,7 @@ function PrimaryView(props) {
 
   switch (newMarkerStage) {
     case "ChooseMarker":
-      stageData = <MarkerTypes onClick={e => selectMarkerType(e)} markerTypes={markerTypes}/>;
+      stageData = <MarkerTypes onClick={e => {selectMarkerType(e)}} markerTypes={markerTypes}/>;
       break;
     case "GeneralInfo":
       stageData = (
@@ -153,7 +152,7 @@ function PrimaryView(props) {
       {isZoomed ? null : <ContainerLeft onClick={handleZoom} />}
       <ContainerEarth isZoomed={isZoomed} onWheel={e => wheelZoom(e)}>
         {stageData}
-        <EarthGlobe markers={markers} currentMarker={currentMarker} markerTypes={markerTypes}/>
+        <EarthGlobe markers={markers} markerTypes={markerTypes} currentMarker={currentMarker} />
         {selectedMarker ? (
           <ContainerCentered>
             <PopupMark closePopup={closePopup} />

@@ -12,9 +12,14 @@ import HeartMarker from "../../../../components/images/markers/HeartMarker";
 
 function EarthGlobe(props) {
 
-    const { markers, markerImages, currentMarker, dispatch } = props;
-    const { typeId } = currentMarker;
+    const { markers, markerTypes, currentMarker, dispatch } = props;
+    //const { typeId } = currentMarker;
     //console.log(typeId, markerImages.typeId)
+                // if (markerType.name === currentMarker.type){
+                //     markerImageUrl = markerType.image
+                //}
+
+                console.log("before useEffect - currentMarker type", currentMarker.type)
 
     useEffect(
         () => {
@@ -77,17 +82,20 @@ function EarthGlobe(props) {
                 //console.log(currentActive.dataItem.dataContext.id);
             });
 
+            console.log(markers)
+            console.log("after useEffect - currentMarker type", currentMarker.type)
+
             //create new marker
             function addNewMarker(ev) {
                 var coords = chart.svgPointToGeo(ev.svgPoint);
-                var newMarker = imageSeries.mapImages.create();
+               //  var newMarker = imageSeries.mapImages.create();
+               // console.log(imageSeries.mapImages)
+                //var markerImgUrl = 
                 dispatch(Actions.setNewMarkerCoords(coords.latitude, coords.longitude));
-                //markerImgUrl = "./images/markers/plus.svg"
-                marker.href = markerImages.typeId;
-                newMarker.latitude = coords.latitude;
-                newMarker.longitude = coords.longitude;
-                //console.log(currentMarker)
-               //dispatch(Actions.addNewMarker());
+                // marker.href = "./images/markers/child.svg";
+                // newMarker.latitude = coords.latitude;
+                // newMarker.longitude = coords.longitude;
+                //let markerImageUrl = markerTypes.find(markerType => markerType.name===currentMarker.type)
             }; 
 
             //console.log(marker);
