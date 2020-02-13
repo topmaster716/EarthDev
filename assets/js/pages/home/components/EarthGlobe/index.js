@@ -12,7 +12,9 @@ import HeartMarker from "../../../../components/images/markers/HeartMarker";
 
 function EarthGlobe(props) {
 
-    const { markers, dispatch } = props;
+    const { markers, markerImages, currentMarker, dispatch } = props;
+    const { typeId } = currentMarker;
+    //console.log(typeId, markerImages.typeId)
 
     useEffect(
         () => {
@@ -65,6 +67,7 @@ function EarthGlobe(props) {
             imageSeriesTemplate.propertyFields.longitude = "longitude";
             imageSeries.events.on("datavalidated", updateImageVisibility);
             chart.events.on("zoomlevelchanged", updateImageVisibility);
+            chart.seriesContainer.events.on("hit", addNewMarker);
 
             //add ability to zoom choosen marker
             let currentActive;
@@ -75,15 +78,17 @@ function EarthGlobe(props) {
             });
 
             //create new marker
-            chart.seriesContainer.events.on("hit", function(ev) {
+            function addNewMarker(ev) {
                 var coords = chart.svgPointToGeo(ev.svgPoint);
                 var newMarker = imageSeries.mapImages.create();
                 dispatch(Actions.setNewMarkerCoords(coords.latitude, coords.longitude));
-                marker.href = "./images/markers/heart.svg";
+                //markerImgUrl = "./images/markers/plus.svg"
+                marker.href = markerImages.typeId;
                 newMarker.latitude = coords.latitude;
                 newMarker.longitude = coords.longitude;
-                dispatch(Actions.addNewMarker());
-            });
+                //console.log(currentMarker)
+               //dispatch(Actions.addNewMarker());
+            }; 
 
             //console.log(marker);
 
@@ -119,7 +124,7 @@ function EarthGlobe(props) {
             });
 
             //this.chart = chart;
-        }
+        }, []
         // componentWillUnmount
         // return function cleanup() {
         //     if (chart) {

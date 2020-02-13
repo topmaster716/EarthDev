@@ -32,7 +32,7 @@ class Preloader extends Component {
                             </defs>
                         </svg>
                     </div>
-                    <div id="leaf" className="preloader_icon">
+                    <div id="leaf-icon" className="preloader_icon">
                         <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g filter="url(#filter0_d)">
                                 <path
@@ -58,7 +58,7 @@ class Preloader extends Component {
                             </defs>
                         </svg>
                     </div>
-                    <div id="home" className="preloader_icon">
+                    <div id="home-icon" className="preloader_icon">
                         <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g filter="url(#filter0_d)">
                                 <path
@@ -84,7 +84,7 @@ class Preloader extends Component {
                             </defs>
                         </svg>
                     </div>
-                    <div id="plus" className="preloader_icon">
+                    <div id="plus-icon" className="preloader_icon">
                         <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g filter="url(#filter0_d)">
                                 <path
@@ -112,7 +112,7 @@ class Preloader extends Component {
                             </defs>
                         </svg>
                     </div>
-                    <div id="paw" className="preloader_icon">
+                    <div id="paw-icon" className="preloader_icon">
                         <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g filter="url(#filter0_d)">
                                 <path
@@ -156,7 +156,7 @@ class Preloader extends Component {
                             </defs>
                         </svg>
                     </div>
-                    <div id="child" className="preloader_icon">
+                    <div id="child-icon" className="preloader_icon">
                         <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g filter="url(#filter0_d)">
                                 <path

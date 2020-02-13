@@ -28,7 +28,7 @@ import {
 function PrimaryView(props) {
 
   const { home, dispatch } = props;
-  const { markers, currentMarker } = home;
+  const { markers, currentMarker, markerTypes } = home;
 
   const [isZoomed, setIsZoomed] = useState(false);
   const [newMarker, setNewMarker] = useState(false);
@@ -41,13 +41,12 @@ function PrimaryView(props) {
   let stageData;
 
    function selectMarkerType(e) {
-    setNewMarkerType(e.currentTarget.id);
+    setNewMarkerType(e.currentTarget.name);
+    console.log(e.currentTarget.id)
     dispatch(Actions.setNewMarkerType(e.currentTarget.id));
   }
 
   console.log(currentMarker)
-
-
 
   function handleZoom(e) {
     if (!isZoomed) {
@@ -120,7 +119,7 @@ function PrimaryView(props) {
 
   switch (newMarkerStage) {
     case "ChooseMarker":
-      stageData = <MarkerTypes onClick={e => selectMarkerType(e)} />;
+      stageData = <MarkerTypes onClick={e => selectMarkerType(e)} markerTypes={markerTypes}/>;
       break;
     case "GeneralInfo":
       stageData = (
@@ -154,7 +153,7 @@ function PrimaryView(props) {
       {isZoomed ? null : <ContainerLeft onClick={handleZoom} />}
       <ContainerEarth isZoomed={isZoomed} onWheel={e => wheelZoom(e)}>
         {stageData}
-        <EarthGlobe markers={markers} />
+        <EarthGlobe markers={markers} currentMarker={currentMarker} markerTypes={markerTypes}/>
         {selectedMarker ? (
           <ContainerCentered>
             <PopupMark closePopup={closePopup} />
