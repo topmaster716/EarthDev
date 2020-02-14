@@ -21,11 +21,12 @@ import Checkbox from "@material-ui/core/Checkbox";
 // {      <ErrorText>You can display an error</ErrorText>}
 
 function CheckboxForm(props) {
-  const { checked, onChange, label, disabled, error } = props;
+  const { checked, onChange, label, disabled, error_text } = props;
 
   return (
-    <CheckboxContainer required error={false} component="fieldset">
+    <CheckboxContainer onChange={onChange} required component="fieldset" >
       <CheckboxText control={<Checkbox color="primary" />} label={label} />
+       {checked ? null : <ErrorText>{error_text}</ErrorText>}
     </CheckboxContainer>
   );
 }

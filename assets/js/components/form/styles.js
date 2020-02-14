@@ -96,10 +96,8 @@ export const CheckboxText = styled(FormControlLabel)`
 `;
 
 export const ErrorText = styled(FormHelperText)`
+	color: #f44336;
 	margin: 0;
-	font-size: 12px;
-	letter-spacing: 0.2px;
-	color: #e22721;
 `;
 
 export const Button = styled(MaterialButton)`
