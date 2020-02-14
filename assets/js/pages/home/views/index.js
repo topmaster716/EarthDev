@@ -97,7 +97,7 @@ function PrimaryView(props) {
       setNewMarkerStage("ChooseMarker");
       setBtnTitle("Accept Location");
     } else if (newMarker && newMarkerStage == "ChooseMarker") {
-      setNewMarkerStage("GeneralInfo");
+      setNewMarkerStage("PaymentInfo");
       setBtnTitle("Proceed");
       setShowButton(false);
     } else if (newMarker && newMarkerStage == "GeneralInfo") {

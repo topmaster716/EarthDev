@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Form from "../../../../components/form/index";
 import TextField from "../../../../components/form/text_field";
 import TextArea from "../../../../components/form/text_area";
@@ -7,16 +7,7 @@ import CheckboxForm from "../../../../components/form/checkbox";
 import PopupButton from "../../../../components/form/popup_button";
 
 function PopupInfo(props) {
-    
-        // this.state = {
-        //     
-        //     nicknameValue: "",
-        //     emailValue: "",
-        //     linkValue: "",
-        //     textareaValue: "",
-        //     isChecked: false,
-        //     lettersLeft: "500"
-        // };
+
     const { onClick, closePopup } = props;    
 
     const [nicknameValue, setNicknameValue] = useState("")
@@ -88,7 +79,6 @@ function PopupInfo(props) {
                 placeholder="Enter your nickname"
                 label="Nickname"
                 value={nicknameValue}
-                name="nicknameValue"
                 onChange={e => {setNicknameValue(e.target.value)}}
                 helperText="Please enter a valid nickname."
                 error={nicknameError}
@@ -97,7 +87,6 @@ function PopupInfo(props) {
                 placeholder="Enter your e-mail"
                 label="E-mail"
                 value={emailValue}
-                name="emailValue"
                 onChange={e => {setEmailValue(e.target.value)}}
                 helperText="Please enter a valid email."
                 error={emailError}
@@ -106,7 +95,6 @@ function PopupInfo(props) {
                 placeholder="Facebook or Instagram only"
                 label="Link (optional)"
                 value={linkValue}
-                name="linkValue"
                 onChange={e => {setLinkValue(e.target.value)}}
                 helperText="Please enter Facebook or Instagram link"
                 error={linkError}
