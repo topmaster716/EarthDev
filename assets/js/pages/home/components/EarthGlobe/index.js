@@ -29,10 +29,10 @@ class EarthGlobe extends Component {
     //console.log("before useEffect - currentMarker type", currentMarker.type)
     componentDidMount() {
 
-        const { markers, markerTypes, currentMarker, dispatch, isZoomed } = this.props;
+        const { markers, currentMarker, dispatch, isZoomed } = this.props;
 
         let markerObj = this.props.markerTypes.find(markerType => markerType.name===this.props.currentMarker.type)
-        console.log(markerObj)
+        //console.log(markerObj)
 
             let chart = am4core.create("chartdiv", am4maps.MapChart);
             let animation;
@@ -93,15 +93,12 @@ class EarthGlobe extends Component {
                 //console.log(currentActive.dataItem.dataContext.id);
             });
 
-        
-
-            //console.log(markers)
-            //console.log("after useEffect - currentMarker type", currentMarker.type)
+            console.log("isZoomed in DidMount", isZoomed)
 
             //create new marker
             function addNewMarker(ev) {
                 var coords = chart.svgPointToGeo(ev.svgPoint);
-                var newMarker = imageSeries.mapImages.create();
+                //var newMarker = imageSeries.mapImages.create();
                // console.log(imageSeries.mapImages)
                 //var markerImgUrl = 
                 dispatch(Actions.setNewMarkerCoords(coords.latitude, coords.longitude));
@@ -113,7 +110,6 @@ class EarthGlobe extends Component {
             }; 
 
             
-
             //show more markers on bigger zoom
             function updateImageVisibility(ev) {
                 let chart = ev.target.baseSprite;
@@ -129,7 +125,7 @@ class EarthGlobe extends Component {
                         image.show();
                     }
                 });
-                console.log(chart.zoomLevel);
+                //console.log(chart.zoomLevel);
             }
 
             // start and stop of animation
@@ -150,34 +146,37 @@ class EarthGlobe extends Component {
         }
 
         componentDidUpdate(oldProps) {
-            const { currentMarker } = this.props;
+            const { currentMarker, markerTypes } = this.props;
 
-            console.log("didUpdate")
-            console.log(this.chart)
-            if (oldProps.currentMarker !== this.props.currentMarker) {
-              let imageSeries = this.chart.series.push(new am4maps.MapImageSeries());
-            let imageSeriesTemplate = imageSeries.mapImages.template;
+            if (oldProps.currentMarker !== currentMarker) {
+                if (this.chart.series.length > 2) {
+                    this.chart.series.removeIndex(2)
+                }
 
-            let newArray = [...this.props.markers, currentMarker];
-            console.log(newArray);
-            console.log(currentMarker);
- 
-            imageSeries.data = newArray;
-            // imageSeries.id = "markers";
-            let marker = imageSeriesTemplate.createChild(am4core.Image);
-            marker.propertyFields.href = "flag";
-            marker.width = 50;
-            marker.height = 50;
-            marker.nonScaling = true;
-            marker.tooltipText = "{title}";
-            marker.horizontalCenter = "middle";
-            marker.verticalCenter = "bottom";
-            imageSeriesTemplate.propertyFields.latitude = "latitude";
-            imageSeriesTemplate.propertyFields.longitude = "longitude";
+                if (currentMarker.type) {
+                    // let currentMarkerInfo = markerTypes.find(markerType => markerType.name===currentMarker.type)
 
-      
-            }
+                    console.log("Action in EarthGlobe", currentMarker)
+
+                    let imageSeries = this.chart.series.push(new am4maps.MapImageSeries());
+                    let imageSeriesTemplate = imageSeries.mapImages.template;
+                    imageSeries.data = [currentMarker];
+                    let marker = imageSeriesTemplate.createChild(am4core.Image);
+                    marker.propertyFields.href = "image"
+                    marker.width = 50;
+                    marker.height = 50;
+                    marker.nonScaling = true;
+                    marker.tooltipText = "{title}";
+                    marker.horizontalCenter = "middle";
+                    marker.verticalCenter = "bottom";
+                    imageSeriesTemplate.propertyFields.latitude = "latitude";
+                    imageSeriesTemplate.propertyFields.longitude = "longitude";
+                 }
+                
+              }
+
           }
+
 
         componentWillUnmount() {
             if (this.chart) {

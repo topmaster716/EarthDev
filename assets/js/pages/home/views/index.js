@@ -42,10 +42,13 @@ function PrimaryView(props) {
 
    function selectMarkerType(e) {
     //console.log(e.currentTarget.getAttribute("name"))
-    dispatch(Actions.setNewMarkerType(e.currentTarget.getAttribute("name")));
+    let currentMarkerInfo = markerTypes.find(markerType => markerType.name===e.currentTarget.getAttribute("name"))
+    //console.log(currentMarker.image)
+    console.log(currentMarkerInfo.value)  
+    dispatch(Actions.setNewMarkerType(e.currentTarget.getAttribute("name"), currentMarkerInfo.value));
   }
 
-  //console.log(currentMarker)
+  console.log(currentMarker.image)
 
   function handleZoom(e) {
     if (!isZoomed) {

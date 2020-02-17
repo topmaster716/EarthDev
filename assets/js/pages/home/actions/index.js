@@ -32,11 +32,13 @@ const Actions = {
       //
     }
   },
-  setNewMarkerType: markerType => {
+  setNewMarkerType: (markerType, markerImage) => {
+    console.log("Action", markerImage)
     return dispatch => {
       dispatch({
         type: Constants.SET_NEW_MARKER_TYPE,
         markerType: markerType,
+        markerImage: markerImage
       });
     };
   },
