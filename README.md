@@ -1,20 +1,11 @@
 # EarthDev
 
-To start your Phoenix server:
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.setup`
-  * Install Node.js dependencies with `cd assets && npm install && cd ..`
-  * Start Phoenix endpoint with `mix phx.server`
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+DATABASE_URL=ecto://postgres:postgres@localhost/earth_dev SECRET_KEY_BASE=W1rs8ilKXkyVDzgMTRbJ8an+n5I0fzeHaQAr3IpTx/uOgrA6qjAphzcsdaJIxKtI MIX_ENV=prod mix compile
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+DATABASE_URL=ecto://postgres:postgres@localhost/earth_dev SECRET_KEY_BASE=W1rs8ilKXkyVDzgMTRbJ8an+n5I0fzeHaQAr3IpTx/uOgrA6qjAphzcsdaJIxKtI  MIX_ENV=prod mix reset
 
-## Learn more
+DATABASE_URL=ecto://postgres:postgres@localhost/earth_dev SECRET_KEY_BASE=W1rs8ilKXkyVDzgMTRbJ8an+n5I0fzeHaQAr3IpTx/uOgrA6qjAphzcsdaJIxKtI PORT=4000 MIX_ENV=prod mix phx.server
 
-  * Official website: http://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Mailing list: http://groups.google.com/group/phoenix-talk
-  * Source: https://github.com/phoenixframework/phoenix
+DATABASE_URL=ecto://postgres:postgres@localhost/earth_dev SECRET_KEY_BASE=W1rs8ilKXkyVDzgMTRbJ8an+n5I0fzeHaQAr3IpTx/uOgrA6qjAphzcsdaJIxKtI PORT=4000 MIX_ENV=prod elixir --erl "-detached" -S mix phx.server

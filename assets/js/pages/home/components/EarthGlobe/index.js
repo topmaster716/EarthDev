@@ -149,6 +149,27 @@ class EarthGlobe extends Component {
             this.chart = chart;
         }
 
+        componentDidUpdate(oldProps) {
+            console.log("didUpdate")
+            if (oldProps.markers !== this.props.markers) {
+              let imageSeries = this.chart.series.push(new am4maps.MapImageSeries());
+                let imageSeriesTemplate = imageSeries.mapImages.template;
+                imageSeries.data = this.props.markers;
+                console.log(this.props.markers)
+                let marker = imageSeriesTemplate.createChild(am4core.Image);
+            marker.propertyFields.href = "flag";
+            marker.width = 50;
+            marker.height = 50;
+            marker.nonScaling = true;
+            marker.tooltipText = "{title}";
+            marker.horizontalCenter = "middle";
+            marker.verticalCenter = "bottom";
+            imageSeriesTemplate.propertyFields.latitude = "latitude";
+            imageSeriesTemplate.propertyFields.longitude = "longitude";
+      
+            }
+          }
+
         componentWillUnmount() {
             if (this.chart) {
                 this.chart.dispose();
