@@ -48,7 +48,7 @@ function PrimaryView(props) {
     dispatch(Actions.setNewMarkerType(e.currentTarget.getAttribute("name"), currentMarkerInfo.value));
   }
 
-  console.log(currentMarker.image)
+  console.log("isZoomed in view", isZoomed)
 
   function handleZoom(e) {
     if (!isZoomed) {

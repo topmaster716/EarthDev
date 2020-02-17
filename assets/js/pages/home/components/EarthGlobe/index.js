@@ -23,166 +23,174 @@ class EarthGlobe extends Component {
     // if (markerType.name === currentMarker.type){
     //     markerImageUrl = markerType.image
     //}
-    //
-    //console.log(markerObj)
+    //console.log(isZoomed)
 
     //console.log("before useEffect - currentMarker type", currentMarker.type)
+
+
     componentDidMount() {
 
         const { markers, currentMarker, dispatch, isZoomed } = this.props;
 
-        let markerObj = this.props.markerTypes.find(markerType => markerType.name===this.props.currentMarker.type)
-        //console.log(markerObj)
+        console.log("isZoomed inside componentDidMount", isZoomed)
 
-            let chart = am4core.create("chartdiv", am4maps.MapChart);
-            let animation;
-            chart.geodata = am4geodata_worldLow;
 
-            // Set projection
-            chart.projection = new am4maps.projections.Orthographic();
-            chart.panBehavior = "rotateLongLat";
-            chart.deltaLongitude = -30;
-            chart.padding(20, 20, 20, 20);
+        let chart = am4core.create("chartdiv", am4maps.MapChart);
+        let animation;
+        chart.geodata = am4geodata_worldLow;
 
-            // Create map polygon series
-            let polygonSeries = chart.series.push(
-                new am4maps.MapPolygonSeries()
-            );
+        // Set projection
+        chart.projection = new am4maps.projections.Orthographic();
+        chart.panBehavior = "rotateLongLat";
+        chart.deltaLongitude = -30;
+        chart.padding(20, 20, 20, 20);
 
-            // Make map load polygon (like country names) data from GeoJSON
-            polygonSeries.useGeodata = true;
+        // Create map polygon series
+        let polygonSeries = chart.series.push(
+            new am4maps.MapPolygonSeries()
+        );
 
-            // Configure series
-            let polygonTemplate = polygonSeries.mapPolygons.template;
-            polygonTemplate.tooltipText = "{name}";
-            polygonTemplate.fill = am4core.color("#45427A");
-            polygonTemplate.stroke = am4core.color("#3B9EDA");
-            chart.backgroundSeries.mapPolygons.template.polygon.fill = am4core.color(
-                "#3B9EDA"
-            );
-            chart.backgroundSeries.mapPolygons.template.polygon.fillOpacity = 1;
+        // Make map load polygon (like country names) data from GeoJSON
+        polygonSeries.useGeodata = true;
 
-            // Create hover state and set alternative fill color
-            let hs = polygonTemplate.states.create("hover");
-            hs.properties.fill = am4core.color("#312E66");
+        // Configure series
+        let polygonTemplate = polygonSeries.mapPolygons.template;
+        polygonTemplate.tooltipText = "{name}";
+        polygonTemplate.fill = am4core.color("#45427A");
+        polygonTemplate.stroke = am4core.color("#3B9EDA");
+        chart.backgroundSeries.mapPolygons.template.polygon.fill = am4core.color(
+            "#3B9EDA"
+        );
+        chart.backgroundSeries.mapPolygons.template.polygon.fillOpacity = 1;
 
-            // Create markers
-            let imageSeries = chart.series.push(new am4maps.MapImageSeries());
-            let imageSeriesTemplate = imageSeries.mapImages.template;
-            imageSeries.data = this.props.markers;
-            imageSeries.id = "markers";
-            let marker = imageSeriesTemplate.createChild(am4core.Image);
-            marker.propertyFields.href = "flag";
-            marker.width = 50;
-            marker.height = 50;
-            marker.nonScaling = true;
-            marker.tooltipText = "{title}";
-            marker.horizontalCenter = "middle";
-            marker.verticalCenter = "bottom";
-            imageSeriesTemplate.propertyFields.latitude = "latitude";
-            imageSeriesTemplate.propertyFields.longitude = "longitude";
-            imageSeries.events.on("datavalidated", updateImageVisibility);
-            chart.events.on("zoomlevelchanged", updateImageVisibility);
-            chart.seriesContainer.events.on("hit", addNewMarker);
+        // Create hover state and set alternative fill color
+        let hs = polygonTemplate.states.create("hover");
+        hs.properties.fill = am4core.color("#312E66");
 
-            //add ability to zoom choosen marker
-            let currentActive;
-            imageSeriesTemplate.events.on("hit", function(event) {
-                currentActive = event.target;
-                chart.zoomToMapObject(event.target, 14);
-                //console.log(currentActive.dataItem.dataContext.id);
-            });
+        // Create markers
+        let imageSeries = chart.series.push(new am4maps.MapImageSeries());
+        let imageSeriesTemplate = imageSeries.mapImages.template;
+        imageSeries.data = this.props.markers;
+        imageSeries.id = "markers";
+        let marker = imageSeriesTemplate.createChild(am4core.Image);
+        marker.propertyFields.href = "flag";
+        marker.width = 50;
+        marker.height = 50;
+        marker.nonScaling = true;
+        marker.tooltipText = "{title}";
+        marker.horizontalCenter = "middle";
+        marker.verticalCenter = "bottom";
+        imageSeriesTemplate.propertyFields.latitude = "latitude";
+        imageSeriesTemplate.propertyFields.longitude = "longitude";
+        imageSeries.events.on("datavalidated", updateImageVisibility);
+        chart.events.on("zoomlevelchanged", updateImageVisibility);
 
-            console.log("isZoomed in DidMount", isZoomed)
+        //add ability to zoom choosen marker
+        let currentActive;
+        imageSeriesTemplate.events.on("hit", function(event) {
+            currentActive = event.target;
+            chart.zoomToMapObject(event.target, 14);
+            //console.log(currentActive.dataItem.dataContext.id);
+        });
 
-            //create new marker
-            function addNewMarker(ev) {
-                var coords = chart.svgPointToGeo(ev.svgPoint);
-                //var newMarker = imageSeries.mapImages.create();
-               // console.log(imageSeries.mapImages)
-                //var markerImgUrl = 
-                dispatch(Actions.setNewMarkerCoords(coords.latitude, coords.longitude));
-                //Вот сюда мне нужно передать markerObj.value, который я получу в зависимотсти от currentMarker
-                // marker.href = "images/markers/heart.svg"
-                // newMarker.latitude = coords.latitude;
-                // newMarker.longitude = coords.longitude;
-                
-            }; 
+        console.log("isZoomed in DidMount", isZoomed)
+
+        //create new marker
+        function addNewMarker(ev) {
+            var coords = chart.svgPointToGeo(ev.svgPoint);
+            //var newMarker = imageSeries.mapImages.create();
+           // console.log(imageSeries.mapImages)
+            //var markerImgUrl = 
+            dispatch(Actions.setNewMarkerCoords(coords.latitude, coords.longitude));
+            //Вот сюда мне нужно передать markerObj.value, который я получу в зависимотсти от currentMarker
+            // marker.href = "images/markers/heart.svg"
+            // newMarker.latitude = coords.latitude;
+            // newMarker.longitude = coords.longitude;
+            
+        }; 
 
             
-            //show more markers on bigger zoom
-            function updateImageVisibility(ev) {
-                let chart = ev.target.baseSprite;
-                let series = chart.map.getKey("markers");
-                //console.log(series);
-                series.mapImages.each(function(image) {
-                    if (
-                        image.dataItem.dataContext.minZoomLevel >
-                        chart.zoomLevel
-                    ) {
-                        image.hide();
-                    } else {
-                        image.show();
-                    }
-                });
-                //console.log(chart.zoomLevel);
-            }
-
-            // start and stop of animation
-            chart.seriesContainer.events.on("ready", function() {
-                animation = chart.animate(
-                    { property: "deltaLongitude", to: 100000 },
-                    20000000
-                );
-            });
-
-            chart.seriesContainer.events.on("down", function() {
-                if (animation) {
-                    animation.stop();
+        //show more markers on bigger zoom
+        function updateImageVisibility(ev) {
+            let chart = ev.target.baseSprite;
+            let series = chart.map.getKey("markers");
+            //console.log(series);
+            series.mapImages.each(function(image) {
+                if (
+                    image.dataItem.dataContext.minZoomLevel >
+                    chart.zoomLevel
+                ) {
+                    image.hide();
+                } else {
+                    image.show();
                 }
             });
-
-            this.chart = chart;
+            //console.log(chart.zoomLevel);
         }
 
-        componentDidUpdate(oldProps) {
-            const { currentMarker, markerTypes } = this.props;
+        // start and stop of animation
+        chart.seriesContainer.events.on("ready", function() {
+            animation = chart.animate(
+                { property: "deltaLongitude", to: 100000 },
+                20000000
+            );
+        });
 
-            if (oldProps.currentMarker !== currentMarker) {
-                if (this.chart.series.length > 2) {
-                    this.chart.series.removeIndex(2)
-                }
+        chart.seriesContainer.events.on("down", function() {
+            if (animation) {
+                animation.stop();
+            }
+        });
 
-                if (currentMarker.type) {
-                    // let currentMarkerInfo = markerTypes.find(markerType => markerType.name===currentMarker.type)
+        this.chart = chart;
+    }
 
-                    console.log("Action in EarthGlobe", currentMarker)
+    componentDidUpdate(oldProps) {
+        const { currentMarker, markerTypes, dispatch } = this.props;
+        const { chart } = this;
 
-                    let imageSeries = this.chart.series.push(new am4maps.MapImageSeries());
-                    let imageSeriesTemplate = imageSeries.mapImages.template;
-                    imageSeries.data = [currentMarker];
-                    let marker = imageSeriesTemplate.createChild(am4core.Image);
-                    marker.propertyFields.href = "image"
-                    marker.width = 50;
-                    marker.height = 50;
-                    marker.nonScaling = true;
-                    marker.tooltipText = "{title}";
-                    marker.horizontalCenter = "middle";
-                    marker.verticalCenter = "bottom";
-                    imageSeriesTemplate.propertyFields.latitude = "latitude";
-                    imageSeriesTemplate.propertyFields.longitude = "longitude";
-                 }
-                
-              }
+         function addNewMarker(ev) {
+            console.log(currentMarker)
+            var coords = chart.svgPointToGeo(ev.svgPoint);
+            dispatch(Actions.setNewMarkerCoords(coords.latitude, coords.longitude))
+        }; 
 
+        chart.seriesContainer.events.on("hit", addNewMarker);
+
+
+        if (oldProps.currentMarker !== currentMarker) {
+            if (this.chart.series.length > 2) {
+                this.chart.series.removeIndex(2)
+            }
+
+            if (currentMarker.type) {
+                // let currentMarkerInfo = markerTypes.find(markerType => markerType.name===currentMarker.type)
+
+                let imageSeries = this.chart.series.push(new am4maps.MapImageSeries());
+                let imageSeriesTemplate = imageSeries.mapImages.template;
+                imageSeries.data = [currentMarker];
+                let marker = imageSeriesTemplate.createChild(am4core.Image);
+                marker.propertyFields.href = "image"
+                marker.width = 50;
+                marker.height = 50;
+                marker.nonScaling = true;
+                marker.tooltipText = "{title}";
+                marker.horizontalCenter = "middle";
+                marker.verticalCenter = "bottom";
+                imageSeriesTemplate.propertyFields.latitude = "latitude";
+                imageSeriesTemplate.propertyFields.longitude = "longitude";
+             }
+            
           }
 
+      }
 
-        componentWillUnmount() {
-            if (this.chart) {
-                this.chart.dispose();
-            }
+
+    componentWillUnmount() {
+        if (this.chart) {
+            this.chart.dispose();
         }
+    }
 
     // handleZoom(e) {
     //   if (e.type === "dblclick" || e.deltaY < 0) {
