@@ -74,10 +74,10 @@ export default function reducer(state = initialState, action = {}) {
     case Constants.SET_NEW_MARKER_COORDS: 
       return {
         ...state,
-        currentMarker: {...state.currentMarker, latitude: action.latitude, longitude: action.longitude},
-        markers: [...state.markers, {
-          minZoomLevel: 1, latitude: action.latitude, longitude: action.longitude, title: "Fuck you", flag: "./images/markers/paw.svg"
-        }]
+        currentMarker: {...state.currentMarker, latitude: action.latitude, longitude: action.longitude,  minZoomLevel: 1, title: "Fuck you", flag: "./images/markers/paw.svg"},
+        // markers: [...state.markers, {
+        //   minZoomLevel: 1, latitude: action.latitude, longitude: action.longitude, title: "Fuck you", flag: "./images/markers/paw.svg"
+        // }]
       };    
 
     case Constants.ADD_NEW_MARKER: 

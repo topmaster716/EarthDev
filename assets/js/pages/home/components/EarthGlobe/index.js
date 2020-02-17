@@ -150,13 +150,21 @@ class EarthGlobe extends Component {
         }
 
         componentDidUpdate(oldProps) {
+            const { currentMarker } = this.props;
+
             console.log("didUpdate")
-            if (oldProps.markers !== this.props.markers) {
+            console.log(this.chart)
+            if (oldProps.currentMarker !== this.props.currentMarker) {
               let imageSeries = this.chart.series.push(new am4maps.MapImageSeries());
-                let imageSeriesTemplate = imageSeries.mapImages.template;
-                imageSeries.data = this.props.markers;
-                console.log(this.props.markers)
-                let marker = imageSeriesTemplate.createChild(am4core.Image);
+            let imageSeriesTemplate = imageSeries.mapImages.template;
+
+            let newArray = [...this.props.markers, currentMarker];
+            console.log(newArray);
+            console.log(currentMarker);
+ 
+            imageSeries.data = newArray;
+            // imageSeries.id = "markers";
+            let marker = imageSeriesTemplate.createChild(am4core.Image);
             marker.propertyFields.href = "flag";
             marker.width = 50;
             marker.height = 50;
@@ -166,6 +174,7 @@ class EarthGlobe extends Component {
             marker.verticalCenter = "bottom";
             imageSeriesTemplate.propertyFields.latitude = "latitude";
             imageSeriesTemplate.propertyFields.longitude = "longitude";
+
       
             }
           }
