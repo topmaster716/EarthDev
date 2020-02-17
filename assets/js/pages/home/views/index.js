@@ -66,6 +66,12 @@ function PrimaryView(props) {
     }
   }
 
+  function dblClickZoom(e) {
+    if (e.type === "dblclick" && !isZoomed){
+      setIsZoomed(true);
+    }
+  }
+
   console.log("isZoomed", isZoomed);
   // console.log("stage", newMarkerStage);
   // console.log("setShowButton", showButton);
@@ -150,9 +156,9 @@ function PrimaryView(props) {
   return (
     <Container isZoomed={isZoomed}>
       {isZoomed ? null : <ContainerLeft onClick={handleZoom} />}
-      <ContainerEarth isZoomed={isZoomed} onWheel={e => wheelZoom(e)}>
+      <ContainerEarth isZoomed={isZoomed} onWheel={e => wheelZoom(e)} onDoubleClick={e => {dblClickZoom(e)}}>
         {stageData}
-        <EarthGlobe markers={markers} markerTypes={markerTypes} currentMarker={currentMarker} />
+        <EarthGlobe markers={markers} markerTypes={markerTypes} currentMarker={currentMarker} isZoomed={isZoomed}/>
         {selectedMarker ? (
           <ContainerCentered>
             <PopupMark closePopup={closePopup} />
@@ -170,6 +176,7 @@ function PrimaryView(props) {
     </Container>
   );
 }
+/////
 
 // PrimaryView.propTypes = {
 //   router: PropTypes.object.isRequired,

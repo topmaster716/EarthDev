@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import Actions from "../../actions";
 
@@ -10,19 +10,30 @@ import HeartMarker from "../../../../components/images/markers/HeartMarker";
 
 //am4core.useTheme(am4themes_animated);
 
-function EarthGlobe(props) {
+class EarthGlobe extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
 
-    const { markers, markerTypes, currentMarker, dispatch } = props;
-    //const { typeId } = currentMarker;
-    //console.log(typeId, markerImages.typeId)
-                // if (markerType.name === currentMarker.type){
-                //     markerImageUrl = markerType.image
-                //}
+    //console.log(this.props.markers)
 
-                console.log("before useEffect - currentMarker type", currentMarker.type)
+    //let markerImageUrl
+    // if (markerType.name === currentMarker.type){
+    //     markerImageUrl = markerType.image
+    //}
+    //
+    //console.log(markerObj)
 
-    useEffect(
-        () => {
+    //console.log("before useEffect - currentMarker type", currentMarker.type)
+    componentDidMount() {
+
+        const { markers, markerTypes, currentMarker, dispatch, isZoomed } = this.props;
+
+        let markerObj = this.props.markerTypes.find(markerType => markerType.name===this.props.currentMarker.type)
+        console.log(markerObj)
+
             let chart = am4core.create("chartdiv", am4maps.MapChart);
             let animation;
             chart.geodata = am4geodata_worldLow;
@@ -58,7 +69,7 @@ function EarthGlobe(props) {
             // Create markers
             let imageSeries = chart.series.push(new am4maps.MapImageSeries());
             let imageSeriesTemplate = imageSeries.mapImages.template;
-            imageSeries.data = markers;
+            imageSeries.data = this.props.markers;
             imageSeries.id = "markers";
             let marker = imageSeriesTemplate.createChild(am4core.Image);
             marker.propertyFields.href = "flag";
@@ -82,23 +93,26 @@ function EarthGlobe(props) {
                 //console.log(currentActive.dataItem.dataContext.id);
             });
 
-            console.log(markers)
-            console.log("after useEffect - currentMarker type", currentMarker.type)
+        
+
+            //console.log(markers)
+            //console.log("after useEffect - currentMarker type", currentMarker.type)
 
             //create new marker
             function addNewMarker(ev) {
                 var coords = chart.svgPointToGeo(ev.svgPoint);
-               //  var newMarker = imageSeries.mapImages.create();
+                var newMarker = imageSeries.mapImages.create();
                // console.log(imageSeries.mapImages)
                 //var markerImgUrl = 
                 dispatch(Actions.setNewMarkerCoords(coords.latitude, coords.longitude));
-                // marker.href = "./images/markers/child.svg";
+                //Вот сюда мне нужно передать markerObj.value, который я получу в зависимотсти от currentMarker
+                // marker.href = "images/markers/heart.svg"
                 // newMarker.latitude = coords.latitude;
                 // newMarker.longitude = coords.longitude;
-                //let markerImageUrl = markerTypes.find(markerType => markerType.name===currentMarker.type)
+                
             }; 
 
-            //console.log(marker);
+            
 
             //show more markers on bigger zoom
             function updateImageVisibility(ev) {
@@ -115,6 +129,7 @@ function EarthGlobe(props) {
                         image.show();
                     }
                 });
+                console.log(chart.zoomLevel);
             }
 
             // start and stop of animation
@@ -131,15 +146,14 @@ function EarthGlobe(props) {
                 }
             });
 
-            //this.chart = chart;
-        }, []
-        // componentWillUnmount
-        // return function cleanup() {
-        //     if (chart) {
-        //   chart.dispose();
-        //     }
-        // }
-    );
+            this.chart = chart;
+        }
+
+        componentWillUnmount() {
+            if (this.chart) {
+                this.chart.dispose();
+            }
+        }
 
     // handleZoom(e) {
     //   if (e.type === "dblclick" || e.deltaY < 0) {
@@ -161,11 +175,17 @@ function EarthGlobe(props) {
     //   }));
     // }
 
-    return <div id="chartdiv" style={{ width: "100%", height: "100%" }}></div>;
-}
+    render() {
+        
+        return (
+          <div id="chartdiv" style={{ width: "100%", height: "100%" }}></div>
+        );
+      }
+    }
+
 const mapStateToProps = state => ({
-  dispatch: state.dispatch,
-  home: state.home
+      dispatch: state.dispatch,
+      home: state.home
 });
 
 // connect is redux function, to connect with react component
